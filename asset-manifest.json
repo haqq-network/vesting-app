@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/vesting-app/static/css/main.073c9b0a.css",
+    "main.js": "/vesting-app/static/js/main.6ed27e60.js",
+    "static/js/787.da23ea0b.chunk.js": "/vesting-app/static/js/787.da23ea0b.chunk.js",
+    "index.html": "/vesting-app/index.html",
+    "main.073c9b0a.css.map": "/vesting-app/static/css/main.073c9b0a.css.map",
+    "main.6ed27e60.js.map": "/vesting-app/static/js/main.6ed27e60.js.map",
+    "787.da23ea0b.chunk.js.map": "/vesting-app/static/js/787.da23ea0b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.6ed27e60.js"
+  ]
+}

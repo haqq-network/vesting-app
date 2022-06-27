@@ -28,9 +28,12 @@
         devShell = pkgs.mkShell (
           {
             buildInputs = with pkgs; [
-              werf
+              # werf
               yarn
               nodejs
+
+              ###
+              # nodePackages.eslint
             ];
 
             WERF_PLATFORM="linux/amd64";

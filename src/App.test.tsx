@@ -1,9 +1,17 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render } from '@testing-library/react';
+import { App } from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('App', () => {
+  it('should render successfully', () => {
+    const { baseElement } = render(<App />);
+
+    expect(baseElement).toBeTruthy();
+  });
+
+  it('should have a greeting', () => {
+    const { findByText } = render(<App />);
+
+    expect(findByText('Under constaction')).toBeTruthy();
+  });
 });

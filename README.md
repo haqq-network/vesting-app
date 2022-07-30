@@ -8,21 +8,20 @@ https://dynalist.io/d/fv7jIdAlb-5xhJavdETqYEbJ
 
 ## Available Scripts
 
-Install:
-
-```
+```shell
+# Install dependencies:
 yarn
-```
 
-Run dev:
-
-```
+# Start dev server
 yarn start
+
+# Run tests
+yarn test
+# Run tests in watch mode
+yarn test:dev
+
+# Start storybook
+yarn storybook
 ```
 
-Deploy to gh-pages:
-
-```
-yarn predeploy
-yarn deploy
-```
+More scripts can be found in [package.json](./package.json)

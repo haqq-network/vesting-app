@@ -2,9 +2,8 @@ name: Build
 
 on:
   workflow_run:
-    workflows: ['Test']
-    types:
-      - completed
+    workflows: [Test]
+    types: [completed]
 
 defaults:
   run:
@@ -36,7 +35,7 @@ jobs:
       - name: Upload application artifact
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: dist
+          name: app
           path: dist
 
   build-storybook:
@@ -57,5 +56,5 @@ jobs:
       - name: Upload storybook artifact
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: dist
-          path: dist
+          name: storybook
+          path: storybook-static

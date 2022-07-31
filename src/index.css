@@ -18,11 +18,13 @@
   --color-green: #04d484;
   --color-light-green: #eef9f5;
   --color-dark-gray: #545d59;
+  --color-red: #f50000
 
   --ui-kit-font-sans: 'Open Sans', var(--font-family-base);
   --ui-kit-font-serif: 'El Messiri', var(--font-family-base);
   --ui-kit-color-primary: var(--color-green);
   --ui-kit-color-stroke: #e6e6e6;
+  --ui-kit-color-danger: var(--color-red);
 
   --ui-kit-transition-duration: 125ms;
 }

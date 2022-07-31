@@ -1,5 +1,4 @@
-import React, { ReactNode, SyntheticEvent, useMemo } from 'react';
-import styled from '@emotion/styled';
+import React, { ReactNode, SyntheticEvent } from 'react';
 import clsx from 'clsx';
 
 export interface ButtonProps {
@@ -13,33 +12,36 @@ export interface ButtonProps {
   onClick?: (event: SyntheticEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const StyledButton = styled.button<ButtonProps>``;
-
-const OutlineButton = styled.button<ButtonProps>``;
-
 export function Button({
   children,
   onClick,
-  primary = true,
+  // primary = true,
   outline = false,
   disabled = false,
   fill = false,
   type = 'button',
   className,
 }: ButtonProps) {
-  const memoizedProps = useMemo(() => {
-    return {
-      onClick,
-      disabled,
-      type,
-      primary,
-      fill,
-      className: clsx('px-6 py-4', className),
-    };
-  }, [className, disabled, fill, onClick, primary, type]);
-  const ButtonComponent = useMemo(() => {
-    return outline ? OutlineButton : StyledButton;
-  }, [outline]);
+  const classNames = clsx(
+    outline
+      ? 'bg-transparent text-primary border-[2px] box-border border-solid border-primary hover:text-[#20d775] hover:border-[#20d775]'
+      : 'bg-primary text-white hover:bg-[#20d775]',
+    'text-base font-semibold font-sans leading-[24px]',
+    'rounded-[8px] py-[8px] px-[16px]',
+    'transition-colors duration-[125ms]',
+    fill ? 'w-full' : 'inline-block',
+    { 'opacity-75 not-allowed': disabled },
+    className,
+  );
 
-  return <ButtonComponent {...memoizedProps}>{children}</ButtonComponent>;
+  return (
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={classNames}
+    >
+      {children}
+    </button>
+  );
 }

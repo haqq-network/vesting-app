@@ -21,8 +21,8 @@
     "format": "yarn prettier --write '**/**/*.{ts,js,tsx,jsx,cjs,mjs,css,json,md,mdx,html,yaml,yml}'"
   },
   "dependencies": {
-    "@emotion/react": "11.9.3",
-    "@emotion/styled": "11.9.3",
+    "@emotion/react": "11.10.0",
+    "@emotion/styled": "11.10.0",
     "clsx": "1.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

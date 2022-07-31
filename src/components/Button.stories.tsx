@@ -6,7 +6,7 @@ export default {
   component: Button,
   title: 'ui-kit/Button',
   parameters: {
-    layout: 'centered',
+    // layout: 'centered',
   },
 } as ComponentMeta<typeof Button>;
 

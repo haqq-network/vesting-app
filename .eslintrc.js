@@ -18,7 +18,13 @@ module.exports = {
     'plugin:storybook/recommended',
     'plugin:jsx-a11y/recommended',
   ],
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
+  plugins: [
+    '@typescript-eslint',
+    'react',
+    'react-hooks',
+    'prettier',
+    '@emotion',
+  ],
   parser: '@typescript-eslint/parser',
   rules: {
     '@typescript-eslint/no-var-requires': 0,

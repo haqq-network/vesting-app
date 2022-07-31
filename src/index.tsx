@@ -2,8 +2,13 @@ import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import { AppContainer } from './AppContainer';
-import './index.css';
 // import { reportWebVitals } from './reportWebVitals';
+
+if (process.env.NODE_ENV === 'production') {
+  // TODO: integrate with sentry;
+  // initSentry()
+  // reportWebVitals(console.log);
+}
 
 function startApp() {
   const rootElement = document.getElementById('root') as HTMLElement;
@@ -18,7 +23,4 @@ function startApp() {
   );
 }
 
-// TODO: integrate with sentry;
-// initSentry()
 startApp();
-// reportWebVitals(console.log);

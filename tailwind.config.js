@@ -11,6 +11,7 @@ module.exports = {
       },
       colors: {
         primary: 'var(--ui-kit-color-primary)',
+        danger: 'var(--ui-kit-color-danger)',
         black: 'var(--color-black)',
         'light-green': 'var(--color-light-green)',
         'dark-gray': 'var(--color-dark-gray)',

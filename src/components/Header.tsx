@@ -1,12 +1,30 @@
-import React, { ReactElement } from 'react';
+import React, { Fragment, ReactElement, useMemo } from 'react';
+import { AccountButton } from './AccountButton';
+import { HeaderLink } from './HeaderLink';
 import { Container } from './Layout';
 import { Logo } from './Logo';
 
-export function Header(): ReactElement {
+export interface HeaderProps {
+  links?: Array<{ to: string; title: string }>;
+}
+
+export function Header({ links }: HeaderProps): ReactElement {
+  const headerLinks = useMemo(() => {
+    if (!links || links.length === 0) {
+      return null;
+    }
+
+    return links.map(({ to, title }, index) => (
+      <HeaderLink to={to} key={`header-link-${index}`}>
+        {title}
+      </HeaderLink>
+    ));
+  }, [links]);
+
   return (
-    <header className="backdrop-filter backdrop-blur transform-gpu bg-white/70 border-[#e6e6e6] border-b">
+    <header className="backdrop-filter backdrop-blur transform-gpu bg-white/70 border-light-gray border-b">
       <Container>
-        <div className="relative flex items-center justify-between h-[72px]">
+        <div className="relative flex items-center justify-between h-[64px]">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <button
               type="button"
@@ -56,11 +74,20 @@ export function Header(): ReactElement {
               <Logo className="block lg:hidden h-8 w-auto" />
               <Logo className="hidden lg:block h-8 w-auto" />
             </div>
-            <div className="hidden sm:block sm:ml-6">
-              {/* <div className="flex space-x-4">{headerLinks}</div> */}
-            </div>
+            {headerLinks && (
+              <div className="hidden sm:flex sm:ml-6 md:ml-12 space-x-4 items-center">
+                {headerLinks}
+              </div>
+            )}
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <AccountButton
+              account={{
+                address: '0xD090340493b9A23D2E695d2745BA7D7a4e8f836b',
+                balance: '3123121',
+              }}
+              symbol="ISML"
+            />
             {/* <ThemeButton /> */}
             {/*
               <div className="ml-3 relative">

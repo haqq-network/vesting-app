@@ -2,7 +2,7 @@ import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import '../src/index.css';
 
 export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
+  actions: { argTypesRegex: '^on.*' },
   controls: {
     matchers: {
       color: /(background|color)$/i,

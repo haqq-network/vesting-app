@@ -1,16 +1,30 @@
 import React, { ReactElement, ReactNode } from 'react';
+import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
 
 interface HeaderLinkProps {
   to: string;
   children: ReactNode;
+  className?: string;
 }
 
-export function HeaderLink({ children, to }: HeaderLinkProps): ReactElement {
+export function HeaderLink({
+  children,
+  to,
+  className,
+}: HeaderLinkProps): ReactElement {
   return (
     <NavLink
       to={to}
-      className="text-black text-base text-center font-normal hover:text-primary underline-offset-0 hover:underline active:text-primary"
+      className={({ isActive }) => {
+        return clsx(
+          'text-base font-normal leading-[20px]',
+          'hover:text-primary active:text-primary',
+          'hover:underline underline-offset-2',
+          isActive ? 'text-primary' : 'text-black',
+          className,
+        );
+      }}
     >
       {children}
     </NavLink>

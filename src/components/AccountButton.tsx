@@ -17,7 +17,7 @@ function AddressButton({
     'rounded-[6px] font-sans',
     'flex flex-row space-x-[8px] justify-center items-center',
     'bg-white hover:bg-white/90',
-    'transition-colors duration-[125ms] ease-linear',
+    'transition-colors duration-150 ease-linear',
     className,
   );
 
@@ -41,7 +41,7 @@ function BalanceButton({
     'font-serif text-base leading-[24px]',
     'px-[22px] py-[8px] rounded-none',
     'text-white bg-primary hover:bg-[#20d775]',
-    'transition-colors duration-[125ms] ease-linear',
+    'transition-colors duration-150 ease-linear',
     className,
   );
 

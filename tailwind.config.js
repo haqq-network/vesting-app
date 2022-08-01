@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./src/**/!(*.stories|*.spec).{js,jsx,ts,tsx,mdx}'],
-  mode: 'jit',
   darkMode: 'class',
   theme: {
     extend: {
@@ -14,6 +13,7 @@ module.exports = {
         danger: 'var(--ui-kit-color-danger)',
         black: 'var(--color-black)',
         'light-green': 'var(--color-light-green)',
+        'light-gray': 'var(--color-light-gray)',
         'dark-gray': 'var(--color-dark-gray)',
       },
     },

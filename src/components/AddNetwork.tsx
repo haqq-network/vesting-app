@@ -13,7 +13,7 @@ export function AddNetwork(): ReactElement {
       <div className="font-serif font-[700] font-size-[38px] leading-[48px] text-black mb-[20px] ">
         Allow to add a network
       </div>
-      <div className="wrapper font-sans mb-[32px]">
+      <div className="font-sans mb-[32px]">
         <span className={lightSpanClassNames}>
           This will allow this network to be used within MetaMask.
         </span>

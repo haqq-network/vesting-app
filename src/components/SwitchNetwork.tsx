@@ -4,7 +4,7 @@ import { Heading, Text } from './Typography';
 
 export function SwitchNetwork(): ReactElement {
   return (
-    <div className="bg-transparent">
+    <div className="bg-transparent mx-auto">
       <Heading level={2}> Allow to switch the network? </Heading>
       <div className="mb-[32px]">
         <Text color="light">
@@ -12,8 +12,8 @@ export function SwitchNetwork(): ReactElement {
           added network.
         </Text>
         <div className="flex justify-between mt-[24px]">
-          <div className="flex flex-col bg-white rounded-[12px]">
-            <div className="flex flex-col items-center self-center mx-[44px] my-[20px]">
+          <div className="flex flex-col bg-white rounded-[12px] max-w-[200px] w-full justify-center items-center">
+            <div className="flex flex-col items-center mx-[44px] my-[20px]">
               <svg
                 width="24"
                 height="24"
@@ -46,10 +46,10 @@ export function SwitchNetwork(): ReactElement {
                 x="0.25"
                 y="-0.25"
                 width="190.5"
-                height="0.5"
+                height="0.01"
                 transform="matrix(1 0 0 -1 0 16.5)"
                 stroke="#545D59"
-                strokeWidth="0.5"
+                strokeWidth="1"
                 strokeDasharray="6 6"
               />
               <circle cx="96" cy="16" r="15.5" fill="white" stroke="#545D59" />
@@ -60,8 +60,8 @@ export function SwitchNetwork(): ReactElement {
               />
             </svg>
           </div>
-          <div className="flex flex-col bg-white rounded-[12px]">
-            <div className="flex flex-col items-center mx-[44px] my-[20px]">
+          <div className="flex flex-col bg-white rounded-[12px] max-w-[200px] w-full justify-center items-center">
+            <div className="flex flex-col items-center self-center mx-[44px] my-[20px]">
               <svg
                 width="24"
                 height="24"

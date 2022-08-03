@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Modal, ModalProps } from './Modal';
+import { ComponentMeta } from '@storybook/react';
+import { Modal } from './Modal';
 import { Button } from './Button';
-import { Card } from './Card';
+import { ConnectionErrorModal } from './ConnectionErrorModal';
 
 export default {
   title: 'ui-kit/Modal',
@@ -33,7 +33,12 @@ export const BasicModal = () => {
           setOpen(true);
         }}
       >
-        <Card className="p-6">
+        <ConnectionErrorModal
+          onClose={() => {
+            setOpen(false);
+          }}
+        />
+        {/* <Card className="p-6">
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat
             error, qui odit adipisci quibusdam vero quam repellendus maiores,
@@ -48,7 +53,7 @@ export const BasicModal = () => {
           >
             Close modal
           </Button>
-        </Card>
+        </Card> */}
       </Modal>
     </Fragment>
   );

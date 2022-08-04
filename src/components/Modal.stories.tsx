@@ -20,14 +20,13 @@ export const DefaultModal = Template.bind({});
 DefaultModal.args = {
   isOpen: true,
   children: (
-    <Card className="p-6">
+    <Card className="p-6 mx-auto max-w-md">
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat
         error, qui odit adipisci quibusdam vero quam repellendus maiores,
         eveniet optio nesciunt veritatis deleniti aliquam quo! Ut nulla
         asperiores officia ducimus?
       </p>
-      <br />
     </Card>
   ),
 };

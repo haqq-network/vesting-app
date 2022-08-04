@@ -2,12 +2,12 @@ import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import { AppContainer } from './AppContainer';
-// import { reportWebVitals } from './reportWebVitals';
+import { initSentry } from './initSentry';
+import { reportWebVitals } from './reportWebVitals';
 
 if (process.env.NODE_ENV === 'production') {
-  // TODO: integrate with sentry;
-  // initSentry()
-  // reportWebVitals(console.log);
+  initSentry();
+  reportWebVitals(console.log);
 }
 
 export function startApp() {

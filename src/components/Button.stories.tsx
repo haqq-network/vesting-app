@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { Button } from './Button';
+import { Button, DangerButton } from './Button';
 
 export default {
   component: Button,
@@ -11,6 +11,9 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+const DangerTemplate: ComponentStory<typeof DangerButton> = (args) => (
+  <DangerButton {...args} />
+);
 
 export const Primary = Template.bind({});
 Primary.args = {
@@ -25,8 +28,8 @@ Secondary.args = {
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  outline: true,
-  children: 'Outline Disabled Button',
+  outline: false,
+  children: 'Disabled Button',
   disabled: true,
 };
 
@@ -40,5 +43,33 @@ export const OutlineDisabled = Template.bind({});
 OutlineDisabled.args = {
   outline: true,
   children: 'Outline Disabled Button',
+  disabled: true,
+};
+
+export const Danger = DangerTemplate.bind({});
+Danger.args = {
+  outline: false,
+  children: 'Danger button',
+  disabled: false,
+};
+
+export const DisabledDanger = DangerTemplate.bind({});
+DisabledDanger.args = {
+  outline: false,
+  children: 'Disabled Danger button',
+  disabled: true,
+};
+
+export const OutlineDanger = DangerTemplate.bind({});
+OutlineDanger.args = {
+  outline: true,
+  children: 'Outline Danger button',
+  disabled: false,
+};
+
+export const OutlineDisabledDanger = DangerTemplate.bind({});
+OutlineDisabledDanger.args = {
+  outline: true,
+  children: 'Outline Disabled Danger button',
   disabled: true,
 };

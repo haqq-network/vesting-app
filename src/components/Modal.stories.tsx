@@ -1,8 +1,8 @@
-import React, { Fragment, useState } from 'react';
-import { ComponentMeta } from '@storybook/react';
-import { Modal } from './Modal';
-import { Button } from './Button';
+import React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Modal, ModalProps } from './Modal';
 import { ConnectionErrorModal } from './ConnectionErrorModal';
+import { Card } from './Card';
 
 export default {
   title: 'ui-kit/Modal',
@@ -12,49 +12,28 @@ export default {
   },
 } as ComponentMeta<typeof Modal>;
 
-// const Template: ComponentStory<typeof Modal> = (args: ModalProps) => (
-//   <Modal {...args} />
-// );
+const Template: ComponentStory<typeof Modal> = (args: ModalProps) => (
+  <Modal {...args} />
+);
 
-export const BasicModal = () => {
-  const [isOpen, setOpen] = useState(false);
-  return (
-    <Fragment>
-      <Button
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        Open modal
-      </Button>
-      <Modal
-        isOpen={isOpen}
-        onClose={() => {
-          setOpen(true);
-        }}
-      >
-        <ConnectionErrorModal
-          onClose={() => {
-            setOpen(false);
-          }}
-        />
-        {/* <Card className="p-6">
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat
-            error, qui odit adipisci quibusdam vero quam repellendus maiores,
-            eveniet optio nesciunt veritatis deleniti aliquam quo! Ut nulla
-            asperiores officia ducimus?
-          </p>
-          <br />
-          <Button
-            onClick={() => {
-              setOpen(false);
-            }}
-          >
-            Close modal
-          </Button>
-        </Card> */}
-      </Modal>
-    </Fragment>
-  );
+export const DefaultModal = Template.bind({});
+DefaultModal.args = {
+  isOpen: true,
+  children: (
+    <Card className="p-6">
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat
+        error, qui odit adipisci quibusdam vero quam repellendus maiores,
+        eveniet optio nesciunt veritatis deleniti aliquam quo! Ut nulla
+        asperiores officia ducimus?
+      </p>
+      <br />
+    </Card>
+  ),
+};
+
+export const ErrorConnectionModal = Template.bind({});
+ErrorConnectionModal.args = {
+  isOpen: true,
+  children: <ConnectionErrorModal />,
 };

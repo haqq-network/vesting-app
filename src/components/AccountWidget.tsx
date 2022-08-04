@@ -347,3 +347,5 @@ function AccountCard() {
     </div>
   );
 }
+
+export { AccountWidget as default };

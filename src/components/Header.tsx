@@ -1,6 +1,4 @@
-import React, { ReactElement, useMemo } from 'react';
-// import { AccountButton } from './AccountButton';
-import { ConnectButton } from './ConnectButton';
+import React, { lazy, ReactElement, useMemo } from 'react';
 import { HeaderLink } from './HeaderLink';
 import { Container } from './Layout';
 import { Logo } from './Logo';
@@ -8,6 +6,8 @@ import { Logo } from './Logo';
 export interface HeaderProps {
   links?: Array<{ to: string; title: string }>;
 }
+
+const ConnectButton = lazy(() => import('./ConnectButton'));
 
 export function Header({ links }: HeaderProps): ReactElement {
   const headerLinks = useMemo(() => {

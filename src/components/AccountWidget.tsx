@@ -13,6 +13,7 @@ import { Card } from './Card';
 import { IdentIcon } from './IdentIcon';
 import { Modal } from './Modal';
 import { Heading, Text } from './Typography';
+import { useClipboard } from '../hooks/useClipboard';
 
 function CopyIcon() {
   return (
@@ -103,9 +104,10 @@ function DisconnectButton() {
 }
 
 function CopyButton({ text }: { text: string }) {
+  const { copyText } = useClipboard();
   const handleTextCopy = useCallback(() => {
-    console.log('copy', { text });
-  }, [text]);
+    copyText(text);
+  }, [copyText, text]);
 
   return (
     <CardIconButton onClick={handleTextCopy}>
@@ -141,7 +143,6 @@ export function Tooltip({
   );
 }
 
-// TODO: Copy address button
 // TODO: Etherscan link
 export function AccountWidget() {
   const { address, isConnected } = useAccount();

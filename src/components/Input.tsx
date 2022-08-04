@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 type InputValue = string | number | undefined;
 type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
 interface InputProps {
   label?: string;
   id?: string;

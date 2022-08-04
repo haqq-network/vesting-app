@@ -1,21 +1,15 @@
 import React, { useCallback, useMemo } from 'react';
 import { useAccount, useBalance, useConnect, useDisconnect } from 'wagmi';
 import { AccountButton } from './AccountButton';
-// import { JSONPre } from './Playground';
 
 export function ConnectButton() {
   const { isConnected, address } = useAccount();
   const { connect, connectors } = useConnect();
-  const { data: balance, isLoading } = useBalance({
+  const { data: balance } = useBalance({
     addressOrName: address,
     watch: true,
   });
   const { disconnect } = useDisconnect();
-
-  // console.log({
-  //   useAccount: { connector, isConnected, address },
-  //   useConnect: { connectors, error, isLoading, pendingConnector },
-  // });
 
   const handleConnect = useCallback(() => {
     // console.log('onConnectClick', { connector });
@@ -42,12 +36,6 @@ export function ConnectButton() {
     <AccountButton
       onConnectClick={handleConnect}
       onDisconnectClick={handleDisconnect}
-      onAddressClick={() => {
-        console.log('onAddressClick');
-      }}
-      onBalanceClick={() => {
-        console.log('onBalanceClick');
-      }}
       account={account}
     />
   );

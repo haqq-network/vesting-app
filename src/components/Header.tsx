@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement, useMemo } from 'react';
+import React, { ReactElement, useMemo } from 'react';
 // import { AccountButton } from './AccountButton';
 import { ConnectButton } from './ConnectButton';
 import { HeaderLink } from './HeaderLink';

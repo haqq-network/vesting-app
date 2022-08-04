@@ -1,15 +1,14 @@
-import styled from '@emotion/styled';
-import clsx from 'clsx';
 import React, {
-  Fragment,
   useEffect,
   useState,
   useCallback,
   ReactNode,
   ReactElement,
 } from 'react';
-import { useAccount, useBalance, useConnect, useDisconnect } from 'wagmi';
-import { Button } from './Button';
+import styled from '@emotion/styled';
+import clsx from 'clsx';
+import { useAccount, useBalance, useDisconnect } from 'wagmi';
+// import { Button } from './Button';
 import { Card } from './Card';
 import { IdentIcon } from './IdentIcon';
 import { Modal } from './Modal';

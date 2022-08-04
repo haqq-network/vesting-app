@@ -3,12 +3,12 @@ import { Button } from './Button';
 import { Heading, Text } from './Typography';
 
 interface ConnectionErrorModalProps {
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 export function ConnectionErrorModal({ onClose }: ConnectionErrorModalProps) {
   return (
-    <div className="bg-white rounded-[32px] p-[40px]">
+    <div className="bg-white rounded-[32px] p-[40px] max-w-2xl mx-auto">
       <div className="pb-[20px] flex justify-between">
         <Heading level={2}> Connection error </Heading>
         <svg

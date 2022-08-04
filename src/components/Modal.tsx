@@ -22,7 +22,7 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
         >
           <div
             role="none"
-            className="fixed inset-0 backdrop-filter backdrop-blur transform-gpu bg-gray-800/90"
+            className="fixed inset-0 backdrop-filter backdrop-blur transform-gpu bg-[rgba(12, 12, 12, 0.4)]"
             onClick={onClose}
             onKeyDown={(
               event: SyntheticEvent<HTMLDivElement, KeyboardEvent>,
@@ -48,7 +48,7 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="w-full max-w-md transform transition-all pointer-events-auto">
+              <div className="w-full transform transition-all pointer-events-auto">
                 {children}
               </div>
             </Transition.Child>

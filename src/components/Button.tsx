@@ -1,4 +1,4 @@
-import React, { ReactNode, SyntheticEvent } from 'react';
+import React, { ReactElement, ReactNode, SyntheticEvent } from 'react';
 import clsx from 'clsx';
 
 export interface ButtonProps {
@@ -15,7 +15,6 @@ export interface ButtonProps {
 export function Button({
   children,
   onClick,
-  // primary = true,
   outline = false,
   disabled = false,
   fill = false,
@@ -30,7 +29,40 @@ export function Button({
     'rounded-[8px] py-[8px] px-[22px] appearance-none',
     'transition-colors duration-150 ease-linear',
     fill ? 'w-full' : 'inline-block',
-    { 'opacity-75 not-allowed': disabled },
+    { 'opacity-75 cursor-not-allowed': disabled },
+    className,
+  );
+
+  return (
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={classNames}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function DangerButton({
+  children,
+  onClick,
+  outline = false,
+  disabled = false,
+  fill = false,
+  type = 'button',
+  className,
+}: ButtonProps) {
+  const classNames = clsx(
+    outline
+      ? 'bg-transparent text-danger border-[2px] box-border border-solid border-danger hover:text-[#ff0000] hover:border-[#ff0000]'
+      : 'bg-danger text-white hover:bg-[#ff0000]',
+    'text-base font-semibold font-sans leading-[24px]',
+    'rounded-[8px] py-[8px] px-[22px] appearance-none',
+    'transition-colors duration-150 ease-linear',
+    fill ? 'w-full' : 'inline-block',
+    { 'opacity-75 cursor-not-allowed': disabled },
     className,
   );
 

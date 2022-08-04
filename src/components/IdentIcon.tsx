@@ -10,16 +10,15 @@ export interface IdentIconProps {
 
 export function IdentIcon({ address, size = 16, className }: IdentIconProps) {
   const iconElementRef = useRef<HTMLDivElement>(null);
-  const jazzIconElement = useMemo(() => {
-    return Jazzicon(size, parseInt(address.slice(2, 10), 16));
-  }, [address, size]);
 
   useEffect(() => {
     if (iconElementRef.current) {
       iconElementRef.current.innerHTML = '';
-      iconElementRef.current.appendChild(jazzIconElement);
+      iconElementRef.current.appendChild(
+        Jazzicon(size, parseInt(address.slice(2, 10), 16)),
+      );
     }
-  }, [jazzIconElement]);
+  }, [address, size]);
 
   return (
     <div

@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === 'production') {
   // reportWebVitals(console.log);
 }
 
-function startApp() {
+export function startApp() {
   const rootElement = document.getElementById('root') as HTMLElement;
   const root = createRoot(rootElement);
 

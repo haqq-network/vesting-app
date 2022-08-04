@@ -1,5 +1,6 @@
 import React, { Fragment, ReactElement, useMemo } from 'react';
-import { AccountButton } from './AccountButton';
+// import { AccountButton } from './AccountButton';
+import { ConnectButton } from './ConnectButton';
 import { HeaderLink } from './HeaderLink';
 import { Container } from './Layout';
 import { Logo } from './Logo';
@@ -81,13 +82,7 @@ export function Header({ links }: HeaderProps): ReactElement {
             )}
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <AccountButton
-              account={{
-                address: '0xD090340493b9A23D2E695d2745BA7D7a4e8f836b',
-                balance: '3123121',
-              }}
-              symbol="ISML"
-            />
+            <ConnectButton />
             {/* <ThemeButton /> */}
             {/*
               <div className="ml-3 relative">

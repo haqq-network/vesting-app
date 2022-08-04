@@ -14,7 +14,10 @@ export function Spinner({ className }: { className?: string }) {
     <svg
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
-      className={clsx('leading-none w-[32px] h-[32px] text-primary', className)}
+      className={clsx(
+        'leading-none w-[48+px] h-[48px] text-primary',
+        className,
+      )}
     >
       <path
         d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,20a9,9,0,1,1,9-9A9,9,0,0,1,12,21Z"

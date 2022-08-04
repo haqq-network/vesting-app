@@ -40,3 +40,5 @@ export function ConnectButton() {
     />
   );
 }
+
+export { ConnectButton as default };

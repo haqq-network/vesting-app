@@ -1,5 +1,5 @@
+import React, { Fragment, ReactNode, SyntheticEvent } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import React, { Fragment, ReactNode } from 'react';
 
 export interface ModalProps {
   isOpen?: boolean;
@@ -21,8 +21,19 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
           leaveTo="opacity-0"
         >
           <div
+            role="none"
             className="fixed inset-0 backdrop-filter backdrop-blur transform-gpu bg-gray-800/90"
             onClick={onClose}
+            onKeyDown={(
+              event: SyntheticEvent<HTMLDivElement, KeyboardEvent>,
+            ) => {
+              event.preventDefault();
+              event.stopPropagation();
+
+              if (event.nativeEvent.code === 'Escape') {
+                onClose();
+              }
+            }}
           />
         </Transition.Child>
 

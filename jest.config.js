@@ -2,7 +2,13 @@ module.exports = {
   clearMocks: true,
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts,js,tsx,jsx,cjs,mjs}'],
-  coveragePathIgnorePatterns: ['/dist', '.config', '.stories', '.spec'],
+  coveragePathIgnorePatterns: [
+    '/dist',
+    '.config',
+    '.stories',
+    '.spec',
+    'IdentIcon.tsx',
+  ],
   coverageReporters: ['text', 'lcov', 'cobertura'],
   reporters: [
     'default',

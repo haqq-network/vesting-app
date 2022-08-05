@@ -6,6 +6,9 @@ import { Container, Page } from './components/Layout';
 import { Spinner } from './components/Playground';
 
 const AccountWidget = lazy(() => import('./components/AccountWidget'));
+const DepositStatsWidget = lazy(
+  () => import('./components/DepositStatsWidget'),
+);
 
 export function WidgetsLoading() {
   return (
@@ -24,7 +27,7 @@ export function App() {
             <div className="flex flex-col space-y-10">
               <Suspense fallback={<WidgetsLoading />}>
                 <AccountWidget />
-                {/* <DepositStatsWidget /> */}
+                <DepositStatsWidget />
                 {/* <WithdrawWidget /> */}
                 {/* <TransferWidget /> */}
               </Suspense>

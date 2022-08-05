@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode, SyntheticEvent } from 'react';
+import React, { ReactNode, SyntheticEvent } from 'react';
 import clsx from 'clsx';
 
 export interface ButtonProps {

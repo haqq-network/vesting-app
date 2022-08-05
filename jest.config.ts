@@ -1,6 +1,8 @@
-module.exports = {
+import type { Config } from '@jest/types';
+
+const config: Config.InitialOptions = {
   clearMocks: true,
-  collectCoverage: true,
+  // collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.{ts,js,tsx,jsx,cjs,mjs}'],
   coveragePathIgnorePatterns: [
     '/dist',
@@ -29,7 +31,10 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   globals: {
     'ts-jest': {
+      useESM: true,
       tsconfig: '<rootDir>/tsconfig.json',
     },
   },
 };
+
+export default config;

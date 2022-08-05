@@ -15,7 +15,7 @@ export function Spinner({ className }: { className?: string }) {
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       className={clsx(
-        'leading-none w-[48+px] h-[48px] text-primary',
+        'leading-none w-[48+px] h-[48px] text-primary opacity-50',
         className,
       )}
     >

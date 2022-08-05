@@ -85,7 +85,7 @@ jobs:
 
   depoly:
     runs-on: ubuntu-latest
-    if: contains(github.head_ref, 'dev')
+    if: contains(github.ref, 'dev')
     needs:
       - build
     steps:

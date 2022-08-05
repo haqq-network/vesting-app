@@ -2,12 +2,11 @@ import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
 import { AppContainer } from './AppContainer';
-import { initSentry } from './initSentry';
-import { reportWebVitals } from './reportWebVitals';
 
 if (process.env.NODE_ENV === 'production') {
+  const { initSentry } = await import('./initSentry');
+
   initSentry();
-  reportWebVitals(console.log);
 }
 
 export function startApp() {

@@ -43,7 +43,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
       - name: Run tests
-        run: yarn test
+        run: yarn test --coverage --maxWorkers 2
       - name: Upload coverage report
         uses: actions/upload-artifact@v3.1.0
         with:

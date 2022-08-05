@@ -9,10 +9,10 @@ interface InputProps {
   id?: string;
   placeholder?: string;
   value?: InputValue;
-  onChange: (value: InputValue, event?: ChangeEvent) => void;
-  state: 'normal' | 'success' | 'error';
+  onChange?: (value: InputValue, event?: ChangeEvent) => void;
+  state?: 'normal' | 'success' | 'error';
   hint?: string;
-  type: 'text' | 'number';
+  type?: 'text' | 'number';
   required?: boolean;
   disabled?: boolean;
 }
@@ -23,9 +23,9 @@ export const Input: FC<InputProps> = ({
   placeholder,
   value,
   onChange,
-  state,
+  state = 'normal',
   hint,
-  type,
+  type = 'text',
   required,
   disabled = false,
 }) => {
@@ -49,7 +49,7 @@ export const Input: FC<InputProps> = ({
 
   const handleInputChange = useCallback(
     (event: ChangeEvent) => {
-      onChange(event.target.value, event);
+      onChange && onChange(event.target.value, event);
     },
     [onChange],
   );
@@ -60,8 +60,8 @@ export const Input: FC<InputProps> = ({
         htmlFor={inputId}
         className="block mb-1 text-sm font-normal text-gray-900 dark:text-gray-300 w-full"
       >
-        <span>{label}</span>
-        {required && <span className="text-[#04D484]">{' *'}</span>}
+        {label}
+        {required && <span className="text-primary">{' *'}</span>}
       </label>
       <input
         disabled={disabled}

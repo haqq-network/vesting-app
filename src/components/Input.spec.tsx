@@ -1,74 +1,47 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Input } from './Input';
 
 describe('Input', () => {
+  beforeEach(() => {
+    jest.spyOn(Math, 'random').mockImplementation(() => 42);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render successfully', () => {
-    const mockHandler = jest.fn();
-    const { baseElement } = render(
-      <Input
-        onChange={mockHandler}
-        state="normal"
-        type="text"
-        value="test"
-        required
-      />,
-    );
+    const { baseElement } = render(<Input />);
 
-    expect(baseElement).toBeInTheDocument();
     expect(baseElement).toBeTruthy();
-    expect(baseElement).toBeEnabled();
   });
 
-  it('should have correct placeholder value', () => {
-    const mockHandler = jest.fn();
-    render(
-      <Input
-        onChange={mockHandler}
-        state="normal"
-        type="text"
-        placeholder="test"
-      />,
+  it('should have correct placeholder, id and label', () => {
+    const { getByText, getByPlaceholderText } = render(
+      <Input label="label" id="id" placeholder="placeholder" />,
     );
 
-    expect(screen.getAllByPlaceholderText('test')).toBeTruthy();
+    const renderedLabel = getByText('label');
+    const renderedInput = getByPlaceholderText('placeholder');
+
+    expect(renderedLabel).toBeTruthy();
+    expect(renderedLabel).toHaveAttribute('for', 'id');
+    expect(renderedInput).toBeTruthy();
+    expect(renderedInput).toHaveAttribute('id', 'id');
   });
 
-  it('should have correct label text', () => {
-    const mockHandler = jest.fn();
-    render(
-      <div>
-        <Input
-          onChange={mockHandler}
-          state="normal"
-          type="text"
-          placeholder="test"
-          label="test"
-          id="1"
-        />
-      </div>,
+  it('should have correct ids for label when id is not presented', () => {
+    const { getByText, getByPlaceholderText } = render(
+      <Input label="label" placeholder="placeholder" />,
     );
 
-    expect(screen.getByLabelText('test')).toBeTruthy();
-  });
+    const renderedLabel = getByText('label');
+    const renderedInput = getByPlaceholderText('placeholder');
 
-  it('should not have error attribute type', () => {
-    const mockHandler = jest.fn();
-    const { baseElement } = render(
-      <Input
-        onChange={mockHandler}
-        state="success"
-        type="text"
-        label="test"
-        value="test"
-        id="1"
-      />,
-    );
-    screen.debug();
-
-    expect(baseElement).not.toHaveAttribute('type', 'error');
-    expect(screen.getByLabelText('test')).toHaveAttribute('type', 'text');
-
-    // TODO finish tests
+    expect(renderedLabel).toBeTruthy();
+    expect(renderedLabel).toHaveAttribute('for', 'input-42');
+    expect(renderedInput).toBeTruthy();
+    expect(renderedInput).toHaveAttribute('id', 'input-42');
   });
 });

@@ -12,6 +12,8 @@ export const config: AppConfig = {
   network: process.env.NETWORK ?? 'dev',
 };
 
+console.log({ config });
+
 // Networks
 export const chains: Record<string, Chain> = {
   dev: {

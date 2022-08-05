@@ -4,6 +4,7 @@ import React, {
   useCallback,
   ReactNode,
   ReactElement,
+  Fragment,
 } from 'react';
 import styled from '@emotion/styled';
 import clsx from 'clsx';
@@ -131,7 +132,7 @@ export function Tooltip({
           'left-1/2 -translate-x-1/2 -translate-y-2 bottom-full',
           'transition ease-out duration-100',
           'group-hover:visible group-hover:z-50 group-hover:opacity-100 group-hover:translate-y-0',
-          'py-[4px] px-[10px] rounded-sm bg-primary shadow-xl',
+          'py-[4px] px-[10px] rounded-md bg-primary shadow-xl',
         )}
       >
         <Text className="text-sm leading-[20px] font-medium" color="white">
@@ -232,7 +233,7 @@ function AccountAddress({ address }: { address: string | undefined }) {
       <div className="animate-pulse opacity-30 flex flex-row space-x-10">
         <div className="flex space-x-2 flex-row items-center h-[32px] flex-1">
           <div className="rounded-full bg-primary h-[32px] w-[32px] flex-none opacity-30"></div>
-          <div className="h-[12px] bg-primary rounded-full flex-1 max-w-[240px] opacity-30"></div>
+          <div className="h-[12px] bg-primary rounded-md flex-1 max-w-[240px] opacity-30"></div>
         </div>
       </div>
     );
@@ -307,19 +308,26 @@ function AccountCard() {
         <AccountAddress address={address} />
         <div className="flex flex-row items-center">
           <div className="flex-1">
-            <Text color="light" className="leading-[32px]" block>
-              Current balance:
-            </Text>
             {isLoading || balance === undefined ? (
-              <div className="animate-pulse opacity-30 flex flex-row space-x-4 items-center">
-                <div className="h-[48px] bg-primary rounded-md w-[140px] opacity-30"></div>
-                <div className="h-[48px] bg-primary rounded-md w-[80px] opacity-30"></div>
-              </div>
+              <Fragment>
+                <div className="animate-pulse opacity-30">
+                  <div className="h-[16px] bg-primary rounded-md w-[110px] opacity-30 mb-1"></div>
+                  <div className="flex flex-row space-x-4 items-center">
+                    <div className="h-[48px] bg-primary rounded-md w-[140px] opacity-30"></div>
+                    <div className="h-[48px] bg-primary rounded-md w-[80px] opacity-30"></div>
+                  </div>
+                </div>
+              </Fragment>
             ) : (
-              <div className="text-5xl font-bold font-serif leading-[48px]">
-                {Number.parseFloat(balance.formatted).toLocaleString()}{' '}
-                {balance.symbol.toLocaleUpperCase()}
-              </div>
+              <Fragment>
+                <Text color="light" className="leading-[32px]" block>
+                  Current balance:
+                </Text>
+                <div className="text-5xl font-bold font-serif leading-[48px]">
+                  {Number.parseFloat(balance.formatted).toLocaleString()}{' '}
+                  {balance.symbol.toLocaleUpperCase()}
+                </div>
+              </Fragment>
             )}
           </div>
         </div>

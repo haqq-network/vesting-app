@@ -32,7 +32,7 @@ function WagmiContainer({ children }: { children: ReactElement }) {
         // new InjectedConnector({ chains: [chain] }),
         new MetaMaskConnector({ chains: [chain] }),
       ],
-      // autoConnect: true,
+      autoConnect: true,
     });
   }, [chain, rpcProvider, webSocketProvider]);
 

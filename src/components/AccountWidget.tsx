@@ -162,7 +162,7 @@ export function AccountWidget() {
                 </Tooltip>
               )}
 
-              <Tooltip text="Go to scanner">
+              {/* <Tooltip text="Go to scanner">
                 <a
                   href="http://haqq.network"
                   target="_blank"
@@ -172,7 +172,7 @@ export function AccountWidget() {
                     <ScanIcon />
                   </CardIconButton>
                 </a>
-              </Tooltip>
+              </Tooltip> */}
               <Tooltip text="Disconnect">
                 <DisconnectButton />
               </Tooltip>

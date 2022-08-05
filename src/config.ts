@@ -14,6 +14,12 @@ export const config: AppConfig = {
 
 console.log({ config });
 
+const currency = {
+  name: 'Islamic Coin',
+  symbol: 'ISLM',
+  decimals: 18,
+};
+
 // Networks
 export const chains: Record<string, Chain> = {
   dev: {
@@ -25,6 +31,7 @@ export const chains: Record<string, Chain> = {
       ws: 'ws://127.0.0.1:7545',
     },
     testnet: true,
+    nativeCurrency: currency,
   },
   test: {
     id: 53211,
@@ -32,7 +39,7 @@ export const chains: Record<string, Chain> = {
     network: 'haqq-testnet',
     rpcUrls: {
       default: 'https://rpc.eth.testedge.haqq.network',
-      ws: 'wss://rpc.eth.testedge.haqq.network',
+      // ws: 'wss://rpc.eth.testedge.haqq.network',
     },
     testnet: true,
     blockExplorers: {
@@ -41,6 +48,7 @@ export const chains: Record<string, Chain> = {
         url: 'https://explorer.testedge.haqq.network',
       },
     },
+    nativeCurrency: currency,
   },
   main: {
     id: 11235,
@@ -48,7 +56,7 @@ export const chains: Record<string, Chain> = {
     network: 'haqq-mainnet',
     rpcUrls: {
       default: 'https://rpc.eth.haqq.network',
-      ws: 'wss://rpc.eth.haqq.network',
+      // ws: 'wss://rpc.eth.haqq.network',
     },
     testnet: false,
     blockExplorers: {
@@ -57,6 +65,7 @@ export const chains: Record<string, Chain> = {
         url: 'https://explorer.haqq.network',
       },
     },
+    nativeCurrency: currency,
   },
 };
 

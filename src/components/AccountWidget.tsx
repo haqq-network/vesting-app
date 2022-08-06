@@ -3,76 +3,19 @@ import React, {
   useState,
   useCallback,
   ReactNode,
-  ReactElement,
   Fragment,
 } from 'react';
 import styled from '@emotion/styled';
-import clsx from 'clsx';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 // import { Button } from './Button';
 import { Card } from './Card';
 import { IdentIcon } from './IdentIcon';
-import { Modal } from './Modal';
+import { AlertWithDetails } from './Modal';
 import { Heading, Text } from './Typography';
 import { Tooltip } from './Tooltip';
 import { useClipboard } from '../hooks/useClipboard';
-
-function CopyIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-[24px] w-[24px]"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-      />
-    </svg>
-  );
-}
-
-function DisconnectIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-[24px] w-[24px]"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-      />
-    </svg>
-  );
-}
-
-function ScanIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      className="h-[24px] w-[24px]"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-      />
-    </svg>
-  );
-}
+import { useToggle } from '../hooks/useToggle';
+import { CopyIcon, DisconnectIcon } from './Icons';
 
 function CardIconButton({
   children,
@@ -170,37 +113,6 @@ export function AccountWidget() {
   );
 }
 
-function ConnectionErrorModal({
-  isOpen,
-  error,
-  onClose,
-}: {
-  isOpen: boolean;
-  error: Error | null;
-  onClose: () => void;
-}) {
-  if (error === null) {
-    return null;
-  }
-
-  return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <Card className="p-6 overflow-hidden">
-        <p>{error.message}</p>
-        <div className="mt-4">
-          <button
-            type="button"
-            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            onClick={onClose}
-          >
-            Close
-          </button>
-        </div>
-      </Card>
-    </Modal>
-  );
-}
-
 function AccountAddress({ address }: { address: string | undefined }) {
   if (address === undefined) {
     return (
@@ -265,6 +177,7 @@ function AccountCard() {
     addressOrName: address,
     watch: true,
   });
+  const [isErrorOpen, toggleErrorOpen] = useToggle(false);
 
   const handleModalClose = useCallback(() => {
     setModalOpen(false);
@@ -321,9 +234,11 @@ function AccountCard() {
         />
       </AccountCardBgImage>
 
-      <ConnectionErrorModal
+      <AlertWithDetails
         isOpen={isModalOpen}
-        error={error}
+        title="Balance update error"
+        message={`Something went wrong and we cant get your balance. Please try again.`}
+        details={error?.message}
         onClose={handleModalClose}
       />
     </div>

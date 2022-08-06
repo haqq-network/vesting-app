@@ -2,6 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Modal, ModalProps } from './Modal';
 import { ConnectionErrorModal } from './ConnectionErrorModal';
+import { IrreversibleAlertModal } from './IrreversibleAlertModal';
 import { Card } from './Card';
 
 export default {
@@ -35,4 +36,10 @@ export const ErrorConnectionModal = Template.bind({});
 ErrorConnectionModal.args = {
   isOpen: true,
   children: <ConnectionErrorModal />,
+};
+
+export const AlertIrreversibleModal = Template.bind({});
+AlertIrreversibleModal.args = {
+  isOpen: true,
+  children: <IrreversibleAlertModal />,
 };

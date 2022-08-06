@@ -1,7 +1,10 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Modal, ModalProps } from './Modal';
-import { ConnectionErrorModal } from './ConnectionErrorModal';
+import {
+  Modal,
+  ModalProps,
+  AlertWithDetails as AlertWithDetailsComponent,
+} from './Modal';
 import { Card } from './Card';
 
 export default {
@@ -15,6 +18,9 @@ export default {
 const Template: ComponentStory<typeof Modal> = (args: ModalProps) => (
   <Modal {...args} />
 );
+const AlertWithDetailsTemplate: ComponentStory<
+  typeof AlertWithDetailsComponent
+> = (args: ModalProps) => <AlertWithDetailsComponent {...args} />;
 
 export const DefaultModal = Template.bind({});
 DefaultModal.args = {
@@ -31,8 +37,11 @@ DefaultModal.args = {
   ),
 };
 
-export const ErrorConnectionModal = Template.bind({});
-ErrorConnectionModal.args = {
+export const AlertWithDetails = AlertWithDetailsTemplate.bind({});
+AlertWithDetails.args = {
   isOpen: true,
-  children: <ConnectionErrorModal />,
+  title: 'Alert with details',
+  message: 'someMessage',
+  details:
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum perspiciatis pariatur praesentium possimus exercitationem blanditiis atque laborum, fuga dolorum ab odit aut minima, dolor doloribus delectus voluptas minus aspernatur cumque?',
 };

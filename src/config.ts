@@ -39,7 +39,7 @@ export const chains: Record<string, Chain> = {
     name: 'Haqq Devnet',
     network: 'haqq-devnet',
     rpcUrls: {
-      default: 'https://159.69.6.222:8545',
+      default: 'http://159.69.6.222:8545',
     },
     testnet: true,
     nativeCurrency: currency,

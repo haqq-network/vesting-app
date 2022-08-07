@@ -4,6 +4,7 @@ import { Button } from './Button';
 import { IdentIcon } from './IdentIcon';
 import type { BigNumber } from 'ethers';
 import { Menu, Transition } from '@headlessui/react';
+import { getFormattedAddress } from '../utils/getFormattedAddress';
 
 function AddressButton({
   children,
@@ -70,11 +71,6 @@ export interface AccountButtonProps {
   onDisconnectClick?: () => void;
   onAddressClick?: () => void;
   onBalanceClick?: () => void;
-}
-
-function getFormattedAddress(address: string) {
-  const lower = address.toLocaleLowerCase();
-  return `${lower.slice(0, 6)}...${lower.slice(-4)}`;
 }
 
 export function AccountButton({

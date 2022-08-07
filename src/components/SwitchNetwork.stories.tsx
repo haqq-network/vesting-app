@@ -1,17 +1,17 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { SwitchNetwork } from './SwitchNetwork';
+import { SwitchNetworkPage } from '../pages/SwitchNetworkPage';
 
 export default {
-  component: SwitchNetwork,
-  title: 'ui-kit/SwitchNetwork',
+  component: SwitchNetworkPage,
+  title: 'vesting/SwitchNetwork',
   parameters: {
-    // layout: 'centered',
+    layout: 'centered',
   },
-} as ComponentMeta<typeof SwitchNetwork>;
+} as ComponentMeta<typeof SwitchNetworkPage>;
 
-const Template: ComponentStory<typeof SwitchNetwork> = (args) => (
-  <SwitchNetwork {...args} />
+const Template: ComponentStory<typeof SwitchNetworkPage> = (args) => (
+  <SwitchNetworkPage {...args} />
 );
 
 export const Primary = Template.bind({});

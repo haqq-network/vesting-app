@@ -17,12 +17,10 @@ export function Tooltip({ text, children }: TooltipProps): ReactElement {
           'left-1/2 -translate-x-1/2 -translate-y-2 bottom-full',
           'transition ease-out duration-100',
           'group-hover:visible group-hover:z-50 group-hover:opacity-100 group-hover:translate-y-0',
-          'py-[6px] px-[12px] rounded-md bg-primary shadow-xl',
+          'py-[6px] px-[12px] rounded-md bg-primary shadow-xl leading-snug text-xs font-medium text-white',
         )}
       >
-        <Text className="text-sm leading-[20px] font-medium" color="white">
-          {text}
-        </Text>
+        {text}
       </div>
     </span>
   );

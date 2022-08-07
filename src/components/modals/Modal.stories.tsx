@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta } from '@storybook/react';
 import { Modal as ModalComponent, ModalProps } from './Modal';
 import { Card } from '../Card';
 
@@ -11,11 +11,7 @@ export default {
   },
 } as ComponentMeta<typeof ModalComponent>;
 
-const Template: ComponentStory<typeof ModalComponent> = (args: ModalProps) => (
-  <Modal {...args} />
-);
-
-export const Modal = Template.bind({});
+export const Modal = (args: ModalProps) => <ModalComponent {...args} />;
 Modal.args = {
   isOpen: true,
   children: (

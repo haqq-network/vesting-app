@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { ReactElement } from 'react';
 import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+// import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { getChain } from './config';
 import { OnboardingContainer } from './OnboardingContainer';

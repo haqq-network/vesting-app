@@ -8,6 +8,7 @@ export interface HeaderProps {
 }
 
 const ConnectButton = lazy(() => import('./ConnectButton'));
+const NetworkStatus = lazy(() => import('./NetworkStatus'));
 
 export function Header({ links }: HeaderProps): ReactElement {
   const headerLinks = useMemo(() => {
@@ -82,7 +83,10 @@ export function Header({ links }: HeaderProps): ReactElement {
             )}
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <ConnectButton />
+            <div className="flex flex-row space-x-2">
+              <NetworkStatus />
+              <ConnectButton />
+            </div>
             {/* <ThemeButton /> */}
             {/*
               <div className="ml-3 relative">

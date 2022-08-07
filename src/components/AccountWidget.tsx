@@ -10,12 +10,11 @@ import { useAccount, useBalance, useDisconnect } from 'wagmi';
 // import { Button } from './Button';
 import { Card } from './Card';
 import { IdentIcon } from './IdentIcon';
-import { AlertWithDetails } from './Modal';
 import { Heading, Text } from './Typography';
 import { Tooltip } from './Tooltip';
 import { useClipboard } from '../hooks/useClipboard';
-import { useToggle } from '../hooks/useToggle';
 import { CopyIcon, DisconnectIcon } from './Icons';
+import { AlertWithDetails } from './modals/AlertWithDetails';
 
 function CardIconButton({
   children,
@@ -177,7 +176,6 @@ function AccountCard() {
     addressOrName: address,
     watch: true,
   });
-  const [isErrorOpen, toggleErrorOpen] = useToggle(false);
 
   const handleModalClose = useCallback(() => {
     setModalOpen(false);

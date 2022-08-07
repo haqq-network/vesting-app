@@ -1,15 +1,19 @@
 import type { Chain } from 'wagmi';
+import { version } from '../package.json';
 
 export interface AppConfig {
   contractAddress: string | undefined;
   sentryDsn: string | undefined;
   network: string;
+  version: string;
 }
 
+const buildHash = process.env.BUILD_HASH ?? 'dev';
 export const config: AppConfig = {
   contractAddress: process.env.CONTRACT_ADDRESS,
   sentryDsn: process.env.SENTRY_DSN,
   network: process.env.NETWORK ?? 'dev',
+  version: `${version}-${buildHash}`,
 };
 
 console.log({ config });

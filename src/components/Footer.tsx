@@ -1,25 +1,33 @@
 import React, { ReactElement } from 'react';
-import styled from '@emotion/styled';
 import { Container } from './Layout';
-
-const FooterContainer = styled('footer')``;
+import { config } from '../config';
+import { Text } from './Typography';
 
 export function Footer(): ReactElement {
   return (
-    <FooterContainer className="">
+    <footer>
       <Container className="border-t border-light-gray py-4">
-        <nav className="text-center text-sm text-dark-gray">
-          © {new Date().getFullYear()}{' '}
-          <a
-            href="https://haqq.network/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            HAQQ Network.
-          </a>{' '}
-          All rights reserved
+        <nav className="flex flex-row justify-between">
+          <div>
+            <Text color="light" className="text-sm">
+              © {new Date().getFullYear()}{' '}
+              <a
+                href="https://haqq.network/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                HAQQ Network.
+              </a>{' '}
+              All rights reserved
+            </Text>
+          </div>
+          <div>
+            <div className="text-sm text-gray-300">
+              version: {config.version}
+            </div>
+          </div>
         </nav>
       </Container>
-    </FooterContainer>
+    </footer>
   );
 }

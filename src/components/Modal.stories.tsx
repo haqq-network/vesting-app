@@ -41,5 +41,10 @@ ErrorConnectionModal.args = {
 export const AlertIrreversibleModal = Template.bind({});
 AlertIrreversibleModal.args = {
   isOpen: true,
-  children: <IrreversibleAlertModal />,
+  children: (
+    <IrreversibleAlertModal
+      currentOwnerAddress={'0xF2C9eEE63abd1e16ad1Fce8aEf4F868e88e94593'}
+      newOwnerAddress={'0xe40be11F5e7C6bC390bC4caf0138229a82eF6664'}
+    />
+  ),
 };

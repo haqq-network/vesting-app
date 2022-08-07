@@ -1,21 +1,34 @@
-import React from 'react';
 import { renderHook } from '@testing-library/react';
 import { useNextUnlockDate } from './useNextUnlockDate';
 
-const now = new Date();
-const tommorowISO = new Date(
-  new Date().valueOf() + 24 * 60 * 60 * 1000,
-).toISOString();
-
 describe('useNextUnlockDate()', () => {
-  it('should return correct next date', () => {
-    const period = 30;
-    const sourceDate = new Date(now.setDate(now.getDate() - (period - 1)));
-    const expectedDate = tommorowISO;
+  it('should return correct next date with period === 20', () => {
+    const startDate = new Date('2022-01-01T00:00:00.000Z');
+    const period = 20;
+    const nowDate = new Date('2022-05-01T00:00:00.000Z');
+    const expectedReturnDate = '2022-05-21T00:00:00.000Z';
     const { result } = renderHook(() =>
-      useNextUnlockDate(sourceDate, { daysBetween: period }),
+      useNextUnlockDate(startDate, { daysBetween: period }, nowDate),
     );
 
-    expect(result.current.nextUnlockDate.toISOString()).toEqual(expectedDate);
+    expect(result.current.nextUnlockDate.toISOString()).toEqual(
+      expectedReturnDate,
+    );
+  });
+});
+
+describe('useNextUnlockDate()', () => {
+  it('should return correct next date with period === 50', () => {
+    const startDate = new Date('2022-01-01T00:00:00.000Z');
+    const period = 50;
+    const nowDate = new Date('2022-05-01T00:00:00.000Z');
+    const expectedReturnDate = '2022-05-31T00:00:00.000Z';
+    const { result } = renderHook(() =>
+      useNextUnlockDate(startDate, { daysBetween: period }, nowDate),
+    );
+
+    expect(result.current.nextUnlockDate.toISOString()).toEqual(
+      expectedReturnDate,
+    );
   });
 });

@@ -1,23 +1,22 @@
 import React, { useCallback, useMemo } from 'react';
-import { useAccount, useBalance, useConnect, useDisconnect } from 'wagmi';
+import { useAccount, useBalance, useDisconnect } from 'wagmi';
+import { useOnboarding } from '../OnboardingContainer';
 import { AccountButton } from './AccountButton';
 
 export function ConnectButton() {
   const { isConnected, address } = useAccount();
-  const { connect, connectors } = useConnect();
   const { data: balance } = useBalance({
     addressOrName: address,
     watch: true,
   });
   const { disconnect } = useDisconnect();
+  const { connectWallet } = useOnboarding();
 
   const handleConnect = useCallback(() => {
-    // console.log('onConnectClick', { connector });
-    connect({ connector: connectors[0] });
-  }, [connect, connectors]);
+    connectWallet();
+  }, [connectWallet]);
 
   const handleDisconnect = useCallback(() => {
-    // console.log('handleDisconnect');
     disconnect();
   }, [disconnect]);
 

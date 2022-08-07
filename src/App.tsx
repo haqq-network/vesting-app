@@ -3,12 +3,15 @@ import { BrowserRouter } from 'react-router-dom';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Container, Page } from './components/Layout';
+import { Onboarding } from './components/Onboarding';
 import { Spinner } from './components/Playground';
+import { useOnboarding } from './OnboardingContainer';
 
 const AccountWidget = lazy(() => import('./components/AccountWidget'));
 const DepositStatsWidget = lazy(
   () => import('./components/DepositStatsWidget'),
 );
+// const WithdrawWidget = lazy(() => import('./components/WithdrawWidget'));
 
 export function WidgetsLoading() {
   return (
@@ -19,21 +22,31 @@ export function WidgetsLoading() {
 }
 
 export function App() {
+  const { isOnboarded } = useOnboarding();
+
   return (
     <BrowserRouter>
       <Page header={<Header />} footer={<Footer />}>
-        <section className="flex-1 bg-light-green">
-          <Container className="py-10">
-            <div className="flex flex-col space-y-10">
-              <Suspense fallback={<WidgetsLoading />}>
-                <AccountWidget />
-                <DepositStatsWidget />
-                {/* <WithdrawWidget /> */}
-                {/* <TransferWidget /> */}
-              </Suspense>
-            </div>
-          </Container>
-        </section>
+        {!isOnboarded && (
+          <section className="flex-1">
+            <Onboarding />
+          </section>
+        )}
+
+        {isOnboarded && (
+          <section className="flex-1 bg-light-green">
+            <Container className="py-10">
+              <div className="flex flex-col space-y-10">
+                <Suspense fallback={<WidgetsLoading />}>
+                  <AccountWidget />
+                  <DepositStatsWidget />
+                  {/* <WithdrawWidget /> */}
+                  {/* <TransferWidget /> */}
+                </Suspense>
+              </div>
+            </Container>
+          </section>
+        )}
       </Page>
     </BrowserRouter>
   );

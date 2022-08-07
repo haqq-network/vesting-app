@@ -1,9 +1,5 @@
 import React, { Fragment, ReactNode, SyntheticEvent } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { Card } from './Card';
-import { Heading, Text } from './Typography';
-import { Button } from './Button';
-import { useToggle } from '../hooks/useToggle';
 import styled from '@emotion/styled';
 
 export interface ModalProps {
@@ -70,7 +66,7 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
   );
 }
 
-function ModalCloseButton({ onClick }: { onClick: () => void }) {
+export function ModalCloseButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       className="cursor-pointer w-[24px] h-[24px] text-dark-gray hover:text-primary"
@@ -93,87 +89,5 @@ function ModalCloseButton({ onClick }: { onClick: () => void }) {
         />
       </svg>
     </button>
-  );
-}
-export interface AlertProps {
-  isOpen: boolean;
-  title: string;
-  children: ReactNode;
-  onClose: () => void;
-}
-
-export function Alert({ isOpen, title, children, onClose }: AlertProps) {
-  return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-white rounded-2xl p-6 max-w-md mx-auto">
-        <div className="flex flex-col space-y-6">
-          <div className="flex justify-between items-center">
-            <Heading level={3}>{title}</Heading>
-            {onClose && <ModalCloseButton onClick={onClose} />}
-          </div>
-
-          <div>{children}</div>
-
-          {onClose && (
-            <div className="text-right">
-              <Button onClick={onClose} className="min-w-[120px]">
-                Close
-              </Button>
-            </div>
-          )}
-        </div>
-      </div>
-    </Modal>
-  );
-}
-
-export function AlertWithDetails({
-  onClose,
-  isOpen,
-  title,
-  message,
-  details,
-}: any) {
-  const [isDetailsOpen, toggleDetailsOpen] = useToggle(false);
-
-  return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-white rounded-2xl p-6 max-w-md mx-auto">
-        <div className="flex flex-col space-y-6">
-          <div className="flex justify-between items-center">
-            <Heading level={3}>{title}</Heading>
-            {onClose && <ModalCloseButton onClick={onClose} />}
-          </div>
-
-          <div>
-            <Text>{message}</Text>
-          </div>
-
-          {details && isDetailsOpen && (
-            <div className="bg-white rounded-lg shadow-lg p-4">
-              <code className="overflow-auto max-w-full block text-xs text-gray-500">
-                {details}
-              </code>
-            </div>
-          )}
-
-          {onClose && (
-            <div className="flex flex-row items-center justify-between">
-              {details && (
-                <button
-                  onClick={toggleDetailsOpen}
-                  className="text-xs leading-6 text-gray-700 underline hover:text-primary transition-colors duration-150"
-                >
-                  {isDetailsOpen ? 'Hide details' : 'Show details'}
-                </button>
-              )}
-              <Button onClick={onClose} className="min-w-[120px]">
-                Close
-              </Button>
-            </div>
-          )}
-        </div>
-      </div>
-    </Modal>
   );
 }

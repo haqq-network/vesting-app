@@ -1,6 +1,5 @@
 import React, { ReactElement, ReactNode } from 'react';
 import clsx from 'clsx';
-import { Text } from './Typography';
 
 export interface TooltipProps {
   text: string;

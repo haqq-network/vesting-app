@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { useAccount, useContract, useProvider, useToken } from 'wagmi';
+import { useAccount, useContract, useProvider } from 'wagmi';
 import { Card } from './Card';
 import { Heading, Text } from './Typography';
 import HaqqVestingContract from '../../HaqqVesting.json';
@@ -54,7 +54,7 @@ function StatsRow({ label, value }: { label: string; value: string }) {
 
 export function DepositStatsWidget() {
   const provider = useProvider();
-  const { address, isConnected, isConnecting } = useAccount();
+  const { address, isConnected } = useAccount();
   const contract = useContract({
     addressOrName: config.contractAddress,
     contractInterface: HaqqVestingContract.abi,
@@ -155,8 +155,8 @@ export function DepositStatsWidget() {
               )}
 
               {isConnected && depositsCount === 0 && (
-                <div className="text-center p-6">
-                  <Heading level={4}>You have no deposits</Heading>
+                <div className="text-center px-6 py-12">
+                  <Heading level={3}>You have no deposits</Heading>
                 </div>
               )}
 

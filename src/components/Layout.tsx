@@ -23,7 +23,7 @@ export function Container({
   className?: string;
 }) {
   return (
-    <div className={clsx('container px-2 sm:px-6 lg:px-8 mx-auto', className)}>
+    <div className={clsx('container px-4 sm:px-6 lg:px-8 mx-auto', className)}>
       {children}
     </div>
   );

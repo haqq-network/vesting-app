@@ -1,6 +1,8 @@
 import type { Chain } from 'wagmi';
 import { version } from '../package.json';
 
+const buildHash = process.env.BUILD_HASH ?? 'dev';
+
 export interface AppConfig {
   contractAddress: string | undefined;
   sentryDsn: string | undefined;
@@ -8,7 +10,6 @@ export interface AppConfig {
   version: string;
 }
 
-const buildHash = process.env.BUILD_HASH ?? 'dev';
 export const config: AppConfig = {
   contractAddress: process.env.CONTRACT_ADDRESS,
   sentryDsn: process.env.SENTRY_DSN,
@@ -16,59 +17,51 @@ export const config: AppConfig = {
   version: `${version}-${buildHash}`,
 };
 
-console.log({ config });
-
-const currency = {
+const currency: Chain['nativeCurrency'] = {
   name: 'Islamic Coin',
   symbol: 'ISLM',
   decimals: 18,
 };
 
-// Networks
 export const chains: Record<string, Chain> = {
-  dev: {
+  local: {
     id: 1337,
-    name: 'Haqq devnet',
-    network: 'haqq-devnet',
+    name: 'Haqq Localnet',
+    network: 'haqq-localnet',
     rpcUrls: {
       default: 'http://127.0.0.1:7545',
       ws: 'ws://127.0.0.1:7545',
+    },
+    testnet: true,
+  },
+  dev: {
+    id: 121799,
+    name: 'Haqq Devnet',
+    network: 'haqq-devnet',
+    rpcUrls: {
+      default: 'https://159.69.6.222:8545',
     },
     testnet: true,
     nativeCurrency: currency,
   },
   test: {
     id: 53211,
-    name: 'Haqq testnet',
+    name: 'Haqq Testnet',
     network: 'haqq-testnet',
     rpcUrls: {
       default: 'https://rpc.eth.testedge.haqq.network',
-      // ws: 'wss://rpc.eth.testedge.haqq.network',
     },
     testnet: true,
-    blockExplorers: {
-      default: {
-        name: 'Blockscout',
-        url: 'https://explorer.testedge.haqq.network',
-      },
-    },
     nativeCurrency: currency,
   },
   main: {
     id: 11235,
-    name: 'Haqq mainnet',
+    name: 'Haqq Mainnet',
     network: 'haqq-mainnet',
     rpcUrls: {
       default: 'https://rpc.eth.haqq.network',
-      // ws: 'wss://rpc.eth.haqq.network',
     },
     testnet: false,
-    blockExplorers: {
-      default: {
-        name: 'Blockscout',
-        url: 'https://explorer.haqq.network',
-      },
-    },
     nativeCurrency: currency,
   },
 };

@@ -30,22 +30,30 @@ export function SupportedNetworkStatus({ onClick }: { onClick?: () => void }) {
 
   return (
     <div className="group relative flex overflow-visible">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="text-primary h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
+      <button
+        className={clsx(
+          'text-primary h-6 w-6',
+          onClick ? 'cursor-pointer hover:opacity-80' : 'cursor-default',
+        )}
+        onClick={onClick}
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          transform="translate(0, 1)"
-          d="M9 12l2 2 4-5m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          onClick={onClick}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            transform="translate(0, 1)"
+            d="M9 12l2 2 4-5m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </button>
       <div
         className={clsx(
           'invisible absolute w-max mt-1 opacity-0 cursor-default',
@@ -73,7 +81,10 @@ export function UnsupportedNetworkStatus({
   return (
     <div className="group relative flex">
       <button
-        className="text-danger h-6 w-6 cursor-pointer hover:opacity-80"
+        className={clsx(
+          'text-danger h-6 w-6',
+          onClick ? 'cursor-pointer hover:opacity-80' : 'cursor-default',
+        )}
         onClick={onClick}
       >
         <svg

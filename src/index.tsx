@@ -22,4 +22,6 @@ export function startApp() {
   );
 }
 
-startApp();
+window.addEventListener('DOMContentLoaded', () => {
+  startApp();
+});

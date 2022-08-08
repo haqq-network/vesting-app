@@ -1,4 +1,4 @@
-import {} from 'react';
+import { useMemo } from 'react';
 
 interface NextUnlockDateHook {
   nextUnlockDate: Date;
@@ -14,10 +14,14 @@ export function useNextUnlockDate(
   fromDate: Date,
   params: { daysBetween: number },
 ): NextUnlockDateHook {
-  const now = new Date();
-  let currentDate = fromDate.getTime();
-  const offset = params.daysBetween * 24 * 60 * 60 * 1000;
-  while (currentDate <= now.valueOf()) currentDate += offset;
+  return useMemo(() => {
+    const now = Date.now();
+    let unlockTime = fromDate.getTime();
+    const offset = params.daysBetween * 24 * 60 * 60 * 1000;
+    while (unlockTime <= now) {
+      unlockTime += offset;
+    }
 
-  return { nextUnlockDate: new Date(currentDate) };
+    return { nextUnlockDate: new Date(unlockTime) };
+  }, [fromDate, params.daysBetween]);
 }

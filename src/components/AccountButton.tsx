@@ -1,4 +1,4 @@
-import React, { Fragment, ReactElement, ReactNode } from 'react';
+import React, { forwardRef, Fragment, ReactElement, ReactNode } from 'react';
 import clsx from 'clsx';
 import { Button } from './Button';
 import { IdentIcon } from './IdentIcon';
@@ -99,7 +99,6 @@ export function AccountButton({
         <Menu.Button as="div" className="rounded-r-[8px] bg-primary p-[2px]">
           <AddressButton>
             <div className="text-[14px] font-medium flex-1">
-              {/* {`0x...${account.address.toLocaleLowerCase().slice(-4)}`} */}
               {getFormattedAddress(account.address)}
             </div>
             <IdentIcon
@@ -119,14 +118,16 @@ export function AccountButton({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white focus:outline-none shadow p-1">
-            <Menu.Item
-              as="button"
-              className="py-[6px] px-[12px] leading-[24px] hover:bg-light-green transition-colors duration-150 ease-in-out block w-full rounded-sm text-left"
-              onClick={onDisconnectClick}
-            >
-              Disconnect
-            </Menu.Item>
+          <Menu.Items className="absolute right-0 mt-2 w-40 origin-top-right rounded-md bg-white focus:outline-none shadow-lg py-1">
+            {onDisconnectClick && (
+              <Menu.Item
+                as="button"
+                className="py-[6px] px-[16px] leading-[24px] hover:bg-light-green hover:text-primary transition-colors duration-150 ease-out block w-full text-left"
+                onClick={onDisconnectClick}
+              >
+                Disconnect
+              </Menu.Item>
+            )}
           </Menu.Items>
         </Transition>
       </Menu>

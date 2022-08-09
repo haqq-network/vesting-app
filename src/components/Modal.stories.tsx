@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Modal, ModalProps } from './Modal';
 import { ConnectionErrorModal } from './ConnectionErrorModal';
-import { IrreversibleAlertModal } from './IrreversibleAlertModal';
+import { TransferOwnershipConfirmation } from './TransferOwnershipConfirmation';
 import { Card } from './Card';
 
 export default {
@@ -38,11 +38,11 @@ ErrorConnectionModal.args = {
   children: <ConnectionErrorModal />,
 };
 
-export const AlertIrreversibleModal = Template.bind({});
-AlertIrreversibleModal.args = {
+export const OwnershipTransferConfirmation = Template.bind({});
+OwnershipTransferConfirmation.args = {
   isOpen: true,
   children: (
-    <IrreversibleAlertModal
+    <TransferOwnershipConfirmation
       currentOwnerAddress={'0xF2C9eEE63abd1e16ad1Fce8aEf4F868e88e94593'}
       newOwnerAddress={'0xe40be11F5e7C6bC390bC4caf0138229a82eF6664'}
     />

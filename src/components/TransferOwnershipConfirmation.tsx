@@ -3,17 +3,19 @@ import { Button, DangerButton } from './Button';
 import { Card } from './Card';
 import { Text } from './Typography';
 
-interface IrreversibleAlertModalProps {
+interface TransferOwnershipConfirmationProps {
   currentOwnerAddress: string;
   newOwnerAddress: string;
-  onClose?: () => void;
+  onClose: () => void;
+  onConfirm: () => void;
 }
 
-export function IrreversibleAlertModal({
+export function TransferOwnershipConfirmation({
   currentOwnerAddress,
   newOwnerAddress,
   onClose,
-}: IrreversibleAlertModalProps): ReactElement {
+  onConfirm,
+}: TransferOwnershipConfirmationProps): ReactElement {
   return (
     <Card className=" p-6 mx-auto max-w-lg">
       <div className="flex flex-col ">
@@ -35,7 +37,7 @@ export function IrreversibleAlertModal({
           <Text bold>THIS OPERATION IS IRREVERSIBLE</Text>
         </div>
         <div className="flex justify-between">
-          <Button type="submit" className="w-[45%]">
+          <Button type="submit" className="w-[45%]" onClick={onConfirm}>
             Proceed
           </Button>
           <DangerButton onClick={onClose} className="w-[45%]">

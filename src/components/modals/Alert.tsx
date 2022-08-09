@@ -7,10 +7,19 @@ export interface AlertProps {
   isOpen: boolean;
   title: string;
   children: ReactNode;
+  buttonTitle: string;
   onClose: () => void;
+  onClick: () => void;
 }
 
-export function Alert({ isOpen, title, children, onClose }: AlertProps) {
+export function Alert({
+  isOpen,
+  title,
+  children,
+  onClose,
+  buttonTitle,
+  onClick,
+}: AlertProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="bg-white rounded-2xl p-6 max-w-md mx-auto">
@@ -22,10 +31,10 @@ export function Alert({ isOpen, title, children, onClose }: AlertProps) {
 
           <div>{children}</div>
 
-          {onClose && (
+          {onClick && (
             <div className="text-right">
-              <Button onClick={onClose} className="min-w-[120px]">
-                Close
+              <Button onClick={onClick} className="min-w-[120px]">
+                {buttonTitle}
               </Button>
             </div>
           )}

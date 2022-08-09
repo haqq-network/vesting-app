@@ -6,21 +6,23 @@ import { Alert } from './modals/Alert';
 import { Input } from './Input';
 import { ModalCloseButton } from './modals/Modal';
 
-enum kek {
+enum TransferWidgetStates {
   initialTransfer,
-  isAlertOpen,
-  isIrreversibleOpen,
-  isInputOpenFirst,
-  isInputOpenSecond,
+  isAlertWindowOpen,
+  isIrreversibleWindowOpen,
+  isFirstInputWindowOpen,
+  isSecondInputWindowOpen,
 }
 
 export function TransferWidget() {
-  const [state, setState] = useState<kek>(kek.initialTransfer);
+  const [state, setState] = useState<TransferWidgetStates>(
+    TransferWidgetStates.initialTransfer,
+  );
 
   return (
     <Card className="overflow-hidden max-w-lg mx-auto w-full">
       <div className="p-6 flex flex-col space-y-4">
-        {state === kek.initialTransfer && (
+        {state === TransferWidgetStates.initialTransfer && (
           <>
             <Heading level={3} className="uppercase">
               Transfer Start
@@ -30,31 +32,38 @@ export function TransferWidget() {
               Molestias adipisci commodi
             </div>
             <div>
-              <Button fill onClick={() => setState(kek.isAlertOpen)}>
-                Transfer ownership 1
+              <Button
+                fill
+                onClick={() => setState(TransferWidgetStates.isAlertWindowOpen)}
+              >
+                Transfer ownership
               </Button>
             </div>
           </>
         )}
-        {state === kek.isAlertOpen && (
+        {state === TransferWidgetStates.isAlertWindowOpen && (
           <Alert
             isOpen={true}
             title={'First Alert Modal'}
-            onClose={() => setState(kek.initialTransfer)}
+            onClose={() => setState(TransferWidgetStates.initialTransfer)}
             buttonTitle={'Proceed'}
-            onClick={() => setState(kek.isInputOpenFirst)}
+            onClick={() =>
+              setState(TransferWidgetStates.isFirstInputWindowOpen)
+            }
           >
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias
             adipisci commodi
           </Alert>
         )}
-        {state === kek.isInputOpenFirst && (
+        {state === TransferWidgetStates.isFirstInputWindowOpen && (
           <>
             <div className="flex justify-between">
               <Heading level={3} className="uppercase">
                 Transfer With Input
               </Heading>
-              <ModalCloseButton onClick={() => setState(kek.initialTransfer)} />
+              <ModalCloseButton
+                onClick={() => setState(TransferWidgetStates.initialTransfer)}
+              />
             </div>
             <div>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -67,12 +76,17 @@ export function TransferWidget() {
               placeholder="Insert your metamask wallet address..."
               state="normal"
             />
-            <Button fill onClick={() => setState(kek.isIrreversibleOpen)}>
+            <Button
+              fill
+              onClick={() =>
+                setState(TransferWidgetStates.isIrreversibleWindowOpen)
+              }
+            >
               Transfer ownership
             </Button>
           </>
         )}
-        {state === kek.isIrreversibleOpen && (
+        {state === TransferWidgetStates.isIrreversibleWindowOpen && (
           <div className="flex flex-col">
             <div className="mb-[10px] break-words">
               <div className="mb-[2px]">
@@ -95,20 +109,22 @@ export function TransferWidget() {
               <Button
                 type="submit"
                 className="w-[45%]"
-                onClick={() => setState(kek.isInputOpenSecond)}
+                onClick={() =>
+                  setState(TransferWidgetStates.isSecondInputWindowOpen)
+                }
               >
                 Proceed
               </Button>
               <DangerButton
                 className="w-[45%]"
-                onClick={() => setState(kek.initialTransfer)}
+                onClick={() => setState(TransferWidgetStates.initialTransfer)}
               >
                 Cancel
               </DangerButton>
             </div>
           </div>
         )}
-        {state === kek.isInputOpenSecond && (
+        {state === TransferWidgetStates.isSecondInputWindowOpen && (
           <>
             <Heading level={3} className="uppercase">
               Transfer With Input
@@ -122,7 +138,9 @@ export function TransferWidget() {
               <Button
                 fill
                 disabled
-                onClick={() => setState(kek.isIrreversibleOpen)}
+                onClick={() =>
+                  setState(TransferWidgetStates.isIrreversibleWindowOpen)
+                }
               >
                 Transfer ownership
               </Button>

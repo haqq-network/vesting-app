@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Button } from '../Button';
+import { Button, DangerButton } from '../Button';
 import { Heading } from '../Typography';
 import { Modal, ModalCloseButton } from './Modal';
 

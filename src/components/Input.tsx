@@ -45,6 +45,7 @@ export const Input: FC<InputProps> = ({
     'block outline-none border border-solid ',
     'text-black text-sm',
     'w-full px-[16px] py-[10px] rounded-md bg-gray-50',
+    disabled ? 'cursor-not-allowed' : '',
   );
 
   const handleInputChange = useCallback(

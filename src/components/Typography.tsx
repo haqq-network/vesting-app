@@ -84,8 +84,8 @@ export function Text({
       underline: underline,
       'font-bold': bold,
       italic: italic,
-      'inline-block': block,
     },
+    block ? 'block' : 'inline-block',
     className,
   );
 

@@ -32,23 +32,9 @@
 }
 
 body {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
   font-family: var(--ui-kit-font-sans);
-
   color: var(--ui-kit-text-color);
   background-color: var(--color-white);
-}
-
-.app-loader {
-  --app-loader-size: 64px;
-
-  &:empty {
-    position: absolute;
-    width: var(--app-loader-size);
-    height: var(--app-loader-size);
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-image: url('./assets/favicon.svg');
-    background-size: cover;
-  }
 }

@@ -14,7 +14,6 @@
     <meta name="description" content="Vesting app" />
 
     <link rel="preconnect" href="//fonts.googleapis.com" />
-    <link rel="preconnect" href="//fonts.gstatic.com" crossorigin="true" />
     <link
       rel="preload"
       as="style"
@@ -29,13 +28,48 @@
     />
 
     <link rel="stylesheet" href="./index.css" />
+
+    <style>
+      .app-loader {
+        --app-loader-size: 96px;
+
+        width: 100%;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 5000;
+        visibility: visible;
+        transition: 150ms ease-out;
+        transform: scale(1.7);
+        opacity: 0;
+        display: flex;
+        user-select: none;
+        pointer-events: none;
+      }
+
+      .app-loader img {
+        width: var(--app-loader-size);
+        height: var(--app-loader-size);
+      }
+
+      #root:empty + .app-loader {
+        visibility: hidden;
+        opacity: 1;
+        transform: scale(1);
+      }
+    </style>
   </head>
-  <body
-    class="subpixel-antialiased text-base font-sans font-normal outline-none"
-  >
+  <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 
-    <main id="root" class="app-loader"></main>
+    <main id="root"></main>
+
+    <div class="app-loader">
+      <img src="./assets/favicon.svg" alt="HAQQ Network" />
+    </div>
 
     <script src="./index.tsx" type="module"></script>
   </body>

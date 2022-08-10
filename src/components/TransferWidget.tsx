@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import { Button } from './Button';
 import { Card } from './Card';
-import { Heading } from './Typography';
+import { Heading, Text } from './Typography';
 import { Alert } from './modals/Alert';
 import { Confirm } from './modals/Confirm';
 import { Input } from './Input';
@@ -32,10 +32,7 @@ export function TransferWidget() {
             <Heading level={3} className="uppercase">
               Transfer Start
             </Heading>
-            <div>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Molestias adipisci commodi
-            </div>
+            <div>Here you can transfer the deposit rights to another user</div>
             <div>
               <Button
                 fill
@@ -50,12 +47,9 @@ export function TransferWidget() {
         ) : (
           <>
             <Heading level={3} className="uppercase">
-              Transfer With Input
+              New deposit owner
             </Heading>
-            <div>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Molestias adipisci commodi
-            </div>
+            <div>Please insert new deposit owner ETH wallet</div>
             <Input
               required
               type="text"
@@ -77,7 +71,7 @@ export function TransferWidget() {
         )}
         <Alert
           isOpen={isWarningModalOpen}
-          title={'FIRST Alert Modal'}
+          title={'Message'}
           onClose={() => {
             setWarningModalOpen(false);
           }}
@@ -87,12 +81,14 @@ export function TransferWidget() {
             setWarned(true);
           }}
         >
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias
-          adipisci commodi
+          You are about to transfer deposit rights to another account. Are you
+          sure you want to do this? Once it&apos;s done wallet&nbsp;
+          <Text bold>0xAAAA...</Text>&nbsp; won&apos;t be able to withdraw ISLM
+          from the deposit
         </Alert>
         <Confirm
           isOpen={isConfirmModalOpen}
-          title={'SECOND Alert Modal'}
+          title={'WARNING'}
           onClose={handleResetState}
           buttonTitle={'Proceed'}
           onConfirm={handleDepositTransfer}

@@ -1,29 +1,34 @@
-import React, { useState } from 'react';
-import { Button, DangerButton } from './Button';
+import React, { Fragment, useCallback, useState } from 'react';
+import { Button } from './Button';
 import { Card } from './Card';
-import { Heading, Text } from './Typography';
+import { Heading } from './Typography';
 import { Alert } from './modals/Alert';
+import { Confirm } from './modals/Confirm';
 import { Input } from './Input';
-import { ModalCloseButton } from './modals/Modal';
-
-enum TransferWidgetStates {
-  initialTransfer,
-  isAlertWindowOpen,
-  isIrreversibleWindowOpen,
-  isFirstInputWindowOpen,
-  isSecondInputWindowOpen,
-}
+import { TransferOwnershipConfirmation } from './modals/TransferOwnershipConfirmation';
 
 export function TransferWidget() {
-  const [state, setState] = useState<TransferWidgetStates>(
-    TransferWidgetStates.initialTransfer,
-  );
+  const [isWarningModalOpen, setWarningModalOpen] = useState<boolean>(false);
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState<boolean>(false);
+  const [isWarned, setWarned] = useState<boolean>(false);
+  const [isTranferPending, setTranferPending] = useState<boolean>(false);
+
+  const handleResetState = useCallback(() => {
+    setWarningModalOpen(false);
+    setConfirmModalOpen(false);
+    setWarned(false);
+  }, []);
+
+  const handleDepositTransfer = useCallback(() => {
+    setConfirmModalOpen(false);
+    setTranferPending(true);
+  }, []);
 
   return (
     <Card className="overflow-hidden max-w-lg mx-auto w-full">
       <div className="p-6 flex flex-col space-y-4">
-        {state === TransferWidgetStates.initialTransfer && (
-          <>
+        {!isWarned ? (
+          <Fragment>
             <Heading level={3} className="uppercase">
               Transfer Start
             </Heading>
@@ -34,37 +39,19 @@ export function TransferWidget() {
             <div>
               <Button
                 fill
-                onClick={() => setState(TransferWidgetStates.isAlertWindowOpen)}
+                onClick={() => {
+                  setWarningModalOpen(true);
+                }}
               >
                 Transfer ownership
               </Button>
             </div>
-          </>
-        )}
-        {state === TransferWidgetStates.isAlertWindowOpen && (
-          <Alert
-            isOpen={true}
-            title={'First Alert Modal'}
-            onClose={() => setState(TransferWidgetStates.initialTransfer)}
-            buttonTitle={'Proceed'}
-            onClick={() =>
-              setState(TransferWidgetStates.isFirstInputWindowOpen)
-            }
-          >
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias
-            adipisci commodi
-          </Alert>
-        )}
-        {state === TransferWidgetStates.isFirstInputWindowOpen && (
+          </Fragment>
+        ) : (
           <>
-            <div className="flex justify-between">
-              <Heading level={3} className="uppercase">
-                Transfer With Input
-              </Heading>
-              <ModalCloseButton
-                onClick={() => setState(TransferWidgetStates.initialTransfer)}
-              />
-            </div>
+            <Heading level={3} className="uppercase">
+              Transfer With Input
+            </Heading>
             <div>
               Lorem ipsum dolor sit amet consectetur, adipisicing elit.
               Molestias adipisci commodi
@@ -75,78 +62,46 @@ export function TransferWidget() {
               label="address required"
               placeholder="Insert your metamask wallet address..."
               state="normal"
+              disabled={isTranferPending}
             />
             <Button
               fill
-              onClick={() =>
-                setState(TransferWidgetStates.isIrreversibleWindowOpen)
-              }
+              onClick={() => {
+                setConfirmModalOpen(true);
+              }}
+              disabled={isTranferPending}
             >
               Transfer ownership
             </Button>
           </>
         )}
-        {state === TransferWidgetStates.isIrreversibleWindowOpen && (
-          <div className="flex flex-col">
-            <div className="mb-[10px] break-words">
-              <div className="mb-[2px]">
-                <div>
-                  <Text>
-                    Are you sure you want to transfer deposit ownership from
-                    address&nbsp;
-                  </Text>
-                  <Text bold>&apos;{'currentOwnerAddress'}&apos;</Text>
-                </div>
-                <div>
-                  to&nbsp;
-                  <Text bold>&apos;{'newOwnerAddress'}&apos;</Text>
-                  &nbsp;?
-                </div>
-              </div>
-              <Text bold>THIS OPERATION IS IRREVERSIBLE</Text>
-            </div>
-            <div className="flex justify-between">
-              <Button
-                type="submit"
-                className="w-[45%]"
-                onClick={() =>
-                  setState(TransferWidgetStates.isSecondInputWindowOpen)
-                }
-              >
-                Proceed
-              </Button>
-              <DangerButton
-                className="w-[45%]"
-                onClick={() => setState(TransferWidgetStates.initialTransfer)}
-              >
-                Cancel
-              </DangerButton>
-            </div>
-          </div>
-        )}
-        {state === TransferWidgetStates.isSecondInputWindowOpen && (
-          <>
-            <Heading level={3} className="uppercase">
-              Transfer With Input
-            </Heading>
-            <div>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Molestias adipisci commodi
-            </div>
-            <Input disabled />
-            <div>
-              <Button
-                fill
-                disabled
-                onClick={() =>
-                  setState(TransferWidgetStates.isIrreversibleWindowOpen)
-                }
-              >
-                Transfer ownership
-              </Button>
-            </div>
-          </>
-        )}
+        <Alert
+          isOpen={isWarningModalOpen}
+          title={'FIRST Alert Modal'}
+          onClose={() => {
+            setWarningModalOpen(false);
+          }}
+          buttonTitle={'Proceed'}
+          onClick={() => {
+            setWarningModalOpen(false);
+            setWarned(true);
+          }}
+        >
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias
+          adipisci commodi
+        </Alert>
+        <Confirm
+          isOpen={isConfirmModalOpen}
+          title={'SECOND Alert Modal'}
+          onClose={handleResetState}
+          buttonTitle={'Proceed'}
+          onConfirm={handleDepositTransfer}
+        >
+          <TransferOwnershipConfirmation
+            currentOwnerAddress={'0xe40be11F5e7C6bC390bC4caf0138229a82eF6664'}
+            newOwnerAddress={'0x9a1FAb7FEd0b06045aAbEA2D1da73611F6DA2B07'}
+          />
+        </Confirm>
       </div>
     </Card>
   );

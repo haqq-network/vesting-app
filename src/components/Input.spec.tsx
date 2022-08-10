@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Input } from './Input';
 
-describe('Input', () => {
+describe('<Input />', () => {
   beforeEach(() => {
     jest.spyOn(Math, 'random').mockImplementation(() => 42);
   });

@@ -1,4 +1,5 @@
 import React, { lazy, ReactElement, useMemo } from 'react';
+import { NavLink } from 'react-router-dom';
 import { HeaderLink } from './HeaderLink';
 import { Container } from './Layout';
 import { Logo } from './Logo';
@@ -73,8 +74,10 @@ export function Header({ links }: HeaderProps): ReactElement {
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
-              <Logo className="block lg:hidden h-8 w-auto" />
-              <Logo className="hidden lg:block h-8 w-auto" />
+              <NavLink to="/">
+                <Logo className="block lg:hidden h-8 w-auto" />
+                <Logo className="hidden lg:block h-8 w-auto" />
+              </NavLink>
             </div>
             {headerLinks && (
               <div className="hidden sm:flex sm:ml-6 md:ml-12 space-x-4 items-center">

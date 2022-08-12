@@ -8,6 +8,7 @@ export interface AppConfig {
   sentryDsn: string | undefined;
   network: string;
   version: string;
+  publicUrl: string;
 }
 
 export const config: AppConfig = {
@@ -15,6 +16,7 @@ export const config: AppConfig = {
   sentryDsn: process.env.SENTRY_DSN,
   network: process.env.NETWORK ?? 'dev',
   version: `${version}-${buildHash}`,
+  publicUrl: process.env.PUBLIC_URL ?? '/',
 };
 
 console.log('vesting app config', config);

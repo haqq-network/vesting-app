@@ -4,7 +4,7 @@ import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 // import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { getChain } from './config';
+import { config, getChain } from './config';
 import { OnboardingContainer } from './OnboardingContainer';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -48,7 +48,7 @@ export function WagmiContainer({ children }: { children: ReactElement }) {
 
 export function AppContainer({ children }: { children: ReactElement }) {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={config.publicUrl}>
       <WagmiContainer>
         <OnboardingContainer>{children}</OnboardingContainer>
       </WagmiContainer>

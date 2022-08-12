@@ -69,9 +69,10 @@ jobs:
           NETWORK: ${{ secrets.NETWORK }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           CONTRACT_ADDRESS: ${{ secrets.CONTRACT_ADDRESS }}
+          PUBLIC_URL: '/vesting-app'
         run: |
           export BUILD_HASH=$(git rev-parse --short "$GITHUB_SHA")
-          yarn build --public-url '/vesting-app'
+          yarn build --public-url ${{ env.PUBLIC_URL }}
       - name: Upload application artifact
         uses: actions/upload-artifact@v3.1.0
         with:

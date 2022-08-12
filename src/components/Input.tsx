@@ -9,7 +9,7 @@ export interface InputProps {
   id?: string;
   placeholder?: string;
   value?: InputValue;
-  onChange: (value: string, event?: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: string, event?: ChangeEvent<HTMLInputElement>) => void;
   state?: 'normal' | 'success' | 'error';
   hint?: string;
   type?: 'text' | 'number';

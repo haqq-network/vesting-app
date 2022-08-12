@@ -1,19 +1,12 @@
-import { config, getChain } from '../config';
+import { getChain } from '../config';
 import React, {
-  ChangeEvent,
   Fragment,
   useCallback,
   useEffect,
   useMemo,
   useState,
 } from 'react';
-import {
-  useAccount,
-  useContract,
-  useNetwork,
-  useProvider,
-  useSigner,
-} from 'wagmi';
+import { useAccount, useContract, useProvider, useSigner } from 'wagmi';
 import { Card } from './Card';
 import { Heading, Text } from './Typography';
 import HaqqVestingContract from '../../HaqqVesting.json';
@@ -23,7 +16,7 @@ import { Button, DangerButton } from './Button';
 import { DepositNavigation } from './DepositNavigation';
 import { useNextUnlockDate } from '../hooks/useNextUnlockDate';
 import { Modal, ModalCloseButton } from './modals/Modal';
-import { AlertWithDetails } from './modals/AlertWithDetails';
+
 import { Alert } from './modals/Alert';
 import { Confirm } from './modals/Confirm';
 import { Input } from './Input';
@@ -177,7 +170,7 @@ export function DepositStatsWidget({
             <Fragment>
               <DepositInfo
                 deposit={deposit}
-                symbol={chain.nativeCurrency.symbol}
+                symbol={chain.nativeCurrency.symbol ?? ''}
               />
 
               <div className="flex flex-col space-y-4 px-6 pb-6">
@@ -247,9 +240,8 @@ function DepositInfo({ deposit, symbol }: any) {
 }
 
 function Withdraw({ symbol, deposit, contractAddress }: any) {
-  // TODO: Take from props or hook
   const { address } = useAccount();
-  const { data: signer, isError, isLoading } = useSigner();
+  const { data: signer } = useSigner();
   const contract = useContract({
     addressOrName: contractAddress,
     contractInterface: HaqqVestingContract.abi,

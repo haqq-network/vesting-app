@@ -1,4 +1,4 @@
-import React, { forwardRef, Fragment, ReactElement, ReactNode } from 'react';
+import React, { Fragment, ReactElement, ReactNode } from 'react';
 import clsx from 'clsx';
 import { Button } from './Button';
 import { IdentIcon } from './IdentIcon';

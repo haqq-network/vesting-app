@@ -17,6 +17,8 @@ export const config: AppConfig = {
   version: `${version}-${buildHash}`,
 };
 
+console.log('vesting app config', config);
+
 const currency: Chain['nativeCurrency'] = {
   name: 'Islamic Coin',
   symbol: 'ISLM',

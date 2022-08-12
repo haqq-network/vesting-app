@@ -11,12 +11,6 @@ describe('<Input />', () => {
     jest.clearAllMocks();
   });
 
-  it('should render successfully', () => {
-    const { baseElement } = render(<Input />);
-
-    expect(baseElement).toBeTruthy();
-  });
-
   it('should have correct placeholder, id and label', () => {
     const { getByText, getByPlaceholderText } = render(
       <Input label="label" id="id" placeholder="placeholder" />,

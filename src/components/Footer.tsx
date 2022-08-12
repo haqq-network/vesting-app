@@ -5,7 +5,7 @@ import { Text } from './Typography';
 
 export function Footer(): ReactElement {
   return (
-    <footer>
+    <footer className="bg-light-green">
       <Container className="border-t border-light-gray py-4">
         <nav className="flex flex-row justify-between">
           <div>

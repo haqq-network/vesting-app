@@ -40,7 +40,9 @@ export function Page({ children, header, footer }: PageProps): ReactElement {
     <Layout>
       {/* TODO: BANNER COMPONENT MUST BE PLACED HERE */}
       {header && <div className="sticky top-0 flex-0 z-40">{header}</div>}
-      <div className="flex-1 flex flex-col">{children}</div>
+      <div className="flex-1 flex flex-col overflow-x-hidden relative bg-light-green">
+        {children}
+      </div>
       {footer ? footer : null}
     </Layout>
   );

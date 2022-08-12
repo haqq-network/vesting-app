@@ -10,8 +10,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export function startApp() {
-  const rootElement = document.getElementById('root') as HTMLElement;
-  const root = createRoot(rootElement);
+  const rootElement = document.getElementById('root');
+  const root = createRoot(rootElement as HTMLElement);
 
   root.render(
     <StrictMode>

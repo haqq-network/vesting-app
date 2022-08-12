@@ -32,6 +32,7 @@ export const chains: Record<string, Chain> = {
       default: 'http://127.0.0.1:7545',
       ws: 'ws://127.0.0.1:7545',
     },
+    nativeCurrency: currency,
     testnet: true,
   },
   dev: {

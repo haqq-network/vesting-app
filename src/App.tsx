@@ -1,53 +1,82 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { useAccount } from 'wagmi';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { Container, Page } from './components/Layout';
-import { Onboarding } from './components/Onboarding';
 import { Spinner } from './components/Playground';
-import { useOnboarding } from './OnboardingContainer';
+import { MainPage } from './pages/MainPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
-const AccountWidget = lazy(() => import('./components/AccountWidget'));
-const DepositStatsWidget = lazy(
-  () => import('./components/DepositStatsWidget'),
-);
-// const WithdrawWidget = lazy(() => import('./components/WithdrawWidget'));
+const AccountPage = lazy(() => import('./pages/AccountPage'));
 
-export function WidgetsLoading() {
+export function PendingPage() {
   return (
-    <div className="min-h-[400px] py-16 flex items-center justify-center content-center">
+    <Container className="min-h-[400px] py-20 flex items-center justify-center content-center">
       <Spinner />
-    </div>
+    </Container>
   );
 }
 
+function RequireConnectedWallet({ children }: { children: JSX.Element }) {
+  const { isConnected } = useAccount();
+  const location = useLocation();
+
+  if (!isConnected) {
+    // Redirect them to the /login page, but save the current location they were
+    // trying to go to when they were redirected.
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
+
+  return children;
+}
+
 export function App() {
-  const { isOnboarded } = useOnboarding();
-
   return (
-    <BrowserRouter>
-      <Page header={<Header />} footer={<Footer />}>
-        {!isOnboarded && (
-          <section className="flex-1">
-            <Onboarding />
-          </section>
-        )}
+    <Page header={<Header />} footer={<Footer />}>
+      <Suspense fallback={<PendingPage />}>
+        <Routes>
+          <Route index element={<MainPage />} />
 
-        {isOnboarded && (
-          <section className="flex-1 bg-light-green">
-            <Container className="py-10">
-              <div className="flex flex-col space-y-10">
-                <Suspense fallback={<WidgetsLoading />}>
-                  <AccountWidget />
-                  <DepositStatsWidget />
-                  {/* <WithdrawWidget /> */}
-                  {/* <TransferWidget /> */}
-                </Suspense>
-              </div>
-            </Container>
-          </section>
-        )}
-      </Page>
-    </BrowserRouter>
+          <Route
+            path="account"
+            element={
+              <RequireConnectedWallet>
+                <AccountPage />
+              </RequireConnectedWallet>
+            }
+          />
+
+          {/* <Route path="deposit">
+            <Route
+              index
+              element={
+                <RequireConnectedWallet>
+                  <DepositPage />
+                </RequireConnectedWallet>
+              }
+            />
+            <Route
+              path="withdraw"
+              element={
+                <RequireConnectedWallet>
+                  <WithdrawPage />
+                </RequireConnectedWallet>
+              }
+            />
+            <Route
+              path="transfer"
+              element={
+                <RequireConnectedWallet>
+                  <TransferPage />
+                </RequireConnectedWallet>
+              }
+            />
+          </Route> */}
+
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
+    </Page>
   );
 }

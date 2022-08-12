@@ -22,7 +22,7 @@ export function Confirm({
 }: ConfirmProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-white rounded-2xl p-6 max-w-md mx-auto">
+      <div className="bg-white rounded-2xl p-6 max-w-lg mx-auto">
         <div className="flex flex-col space-y-6">
           <div className="flex justify-between items-center">
             <Heading level={3}>{title}</Heading>
@@ -32,13 +32,13 @@ export function Confirm({
           <div>{children}</div>
 
           <div className="flex flex-row justify-between">
-            <div className="min-w-[120px]">
-              <Button onClick={onClose} fill>
+            <div>
+              <Button onClick={onClose} fill className="px-10">
                 Abort
               </Button>
             </div>
-            <div className="min-w-[120px]">
-              <DangerButton onClick={onConfirm} fill>
+            <div>
+              <DangerButton onClick={onConfirm} fill className="px-10">
                 {buttonTitle}
               </DangerButton>
             </div>

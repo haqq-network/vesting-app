@@ -45,8 +45,6 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   const { connect, connectors } = useConnect();
   const [errors, setErrors] = useState<Record<string, Error | undefined>>({});
 
-  useEffect(() => console.log({ step }), [step]);
-
   const handleConnectWagmi = useCallback(() => {
     connect({ connector: connectors[0] });
   }, [connect, connectors]);
@@ -61,18 +59,12 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
     console.log('handleConnectWallet');
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       handleConnectWagmi();
-      // const { ethereum } = window;
-
-      // if (ethereum) {
-      //   await ethereum.request({ method: 'eth_requestAccounts' });
-      // }
     } else {
       setNoMetamaskModalOpen(true);
     }
   }, [handleConnectWagmi]);
 
   const handleStartOnboarding = useCallback(() => {
-    // console.log('handleStartOnboarding');
     onboarding.current?.startOnboarding();
     setNoMetamaskModalOpen(false);
     setOnboardingStep('switch-network');
@@ -90,9 +82,7 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
         });
         setOnboardingStep('finish');
       } catch (error) {
-        // console.log('ERROR handleNetworkSwitch', { error });
         if (error.code === 4902) {
-          // console.log('need to add network');
           setOnboardingStep('add-network');
         } else {
           setErrors({ ...errors, switchNetworkError: error as Error });
@@ -102,7 +92,6 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   }, [errors, targetNetworkIdHex]);
 
   const handleNetworkAdd = useCallback(async () => {
-    // console.log('handleNetworkAdd');
     const { ethereum } = window;
 
     if (ethereum) {
@@ -120,7 +109,6 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
         });
         setOnboardingStep('finish');
       } catch (error) {
-        // console.log('ERROR handleNetworkAdd', { error });
         setErrors({ ...errors, addNetworkError: error as Error });
       }
     }

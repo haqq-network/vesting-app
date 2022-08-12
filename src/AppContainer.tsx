@@ -6,13 +6,14 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { getChain } from './config';
 import { OnboardingContainer } from './OnboardingContainer';
+import { BrowserRouter } from 'react-router-dom';
 
-function WagmiContainer({ children }: { children: ReactElement }) {
+export function WagmiContainer({ children }: { children: ReactElement }) {
   const chain = getChain();
 
   const {
-    provider: rpcProvider,
-    webSocketProvider,
+    provider,
+    // webSocketProvider,
     chains,
   } = useMemo(() => {
     return configureChains(
@@ -32,23 +33,25 @@ function WagmiContainer({ children }: { children: ReactElement }) {
 
   const client = useMemo(() => {
     return createClient({
-      provider: rpcProvider,
-      webSocketProvider,
+      provider,
+      // webSocketProvider,
       connectors: [
         new MetaMaskConnector({ chains }),
         // new InjectedConnector({ chains }),
       ],
       autoConnect: true,
     });
-  }, [chains, rpcProvider, webSocketProvider]);
+  }, [chains, provider]);
 
   return <WagmiConfig client={client}>{children}</WagmiConfig>;
 }
 
 export function AppContainer({ children }: { children: ReactElement }) {
   return (
-    <WagmiContainer>
-      <OnboardingContainer>{children}</OnboardingContainer>
-    </WagmiContainer>
+    <BrowserRouter>
+      <WagmiContainer>
+        <OnboardingContainer>{children}</OnboardingContainer>
+      </WagmiContainer>
+    </BrowserRouter>
   );
 }

@@ -60,7 +60,7 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-// TODO: Etherscan link
+// TODO: add link to explorer
 export function AccountWidget() {
   const { address, isConnected } = useAccount();
 
@@ -69,7 +69,7 @@ export function AccountWidget() {
       <div className="p-6 flex flex-col space-y-4">
         <div className="flex flex-row items-center justify-between">
           <Heading level={3} className="uppercase inline-flex">
-            Account info
+            Account
           </Heading>
           {isConnected && (
             <div className="flex flex-row space-x-3 mt-[-4px]">
@@ -188,7 +188,7 @@ function AccountCard() {
   }, [isError, status]);
 
   return (
-    <div className="rounded-[12px] bg-light-green border border-[#04d484] border-opacity-20 h-[200px] relative">
+    <div className="rounded-[12px] bg-light-green border border-primary border-opacity-20 h-[200px] relative">
       <div className="p-4 flex flex-col space-y-4 justify-between content-between h-full">
         <AccountAddress address={address} />
         <div className="flex flex-row items-center">

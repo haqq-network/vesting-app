@@ -9,9 +9,10 @@
   },
   "packageManager": "yarn@3.2.2",
   "scripts": {
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ./dist && mkdir ./dist",
+    "copy-static": "cp -r ./public/* ./dist/",
     "start": "yarn parcel",
-    "build": "yarn clean && yarn parcel build",
+    "build": "yarn clean && yarn copy-static && yarn parcel build",
     "test": "yarn jest",
     "test:dev": "yarn test --watch --onlyChanged",
     "lint": "yarn eslint src/ --ext ts,js,tsx,jsx,mjs,cjs --color",

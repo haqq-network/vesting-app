@@ -4,12 +4,12 @@ import { App } from './App';
 import { AppContainer } from './AppContainer';
 
 if (process.env.NODE_ENV === 'production') {
-  const { initSentry } = await import('./initSentry');
-
-  initSentry();
+  import('./initSentry').then(({ initSentry }) => {
+    initSentry();
+  });
 }
 
-export function startApp() {
+function startApp() {
   const rootElement = document.getElementById('root');
   const root = createRoot(rootElement as HTMLElement);
 
@@ -22,6 +22,6 @@ export function startApp() {
   );
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   startApp();
 });

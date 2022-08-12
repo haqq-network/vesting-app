@@ -115,4 +115,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          touch dist/.nojekyll
           yarn gh-pages --dist dist --message 'chore: deploy to gh-pages' --user "github-actions-bot <support+actions@github.com>"

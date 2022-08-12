@@ -1,15 +1,15 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { ChangeEvent, useCallback, useMemo } from 'react';
 import clsx from 'clsx';
+import { Text } from './Typography';
 
-type InputValue = string | number | undefined;
-type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+type InputValue = string | number;
 
-interface InputProps {
+export interface InputProps {
   label?: string;
   id?: string;
   placeholder?: string;
   value?: InputValue;
-  onChange?: (value: InputValue, event?: ChangeEvent) => void;
+  onChange: (value: string, event?: ChangeEvent<HTMLInputElement>) => void;
   state?: 'normal' | 'success' | 'error';
   hint?: string;
   type?: 'text' | 'number';
@@ -17,7 +17,7 @@ interface InputProps {
   disabled?: boolean;
 }
 
-export const Input: FC<InputProps> = ({
+export function Input({
   label,
   id,
   placeholder,
@@ -28,10 +28,16 @@ export const Input: FC<InputProps> = ({
   type = 'text',
   required,
   disabled = false,
-}) => {
+}: InputProps) {
   const inputId = useMemo<string | undefined>(() => {
-    if (id) return id;
-    if (label) return `input-${Math.random()}`;
+    if (id) {
+      return id;
+    }
+
+    if (label && label !== '') {
+      return `input-${Math.random()}`;
+    }
+
     return undefined;
   }, [id, label]);
 
@@ -44,26 +50,32 @@ export const Input: FC<InputProps> = ({
     },
     'block outline-none border border-solid ',
     'text-black text-sm',
-    'w-full px-[16px] py-[10px] rounded-md bg-gray-50',
+    'w-full px-[16px] py-[10px] rounded-md',
     disabled ? 'cursor-not-allowed' : '',
   );
 
   const handleInputChange = useCallback(
-    (event: ChangeEvent) => {
-      onChange && onChange(event.target.value, event);
+    (event: ChangeEvent<HTMLInputElement>) => {
+      if (onChange) {
+        const {
+          target: { value },
+        } = event;
+        onChange(value, event);
+      }
     },
     [onChange],
   );
 
   return (
-    <div className="mb-6">
-      <label
-        htmlFor={inputId}
-        className="block mb-1 text-sm font-normal text-gray-900 dark:text-gray-300 w-full"
-      >
-        {label}
-        {required && <span className="text-primary">{' *'}</span>}
-      </label>
+    <div>
+      {label && label !== '' && (
+        <label htmlFor={inputId} className="cursor-pointer">
+          <Text color="light" className="mb-1 text-sm">
+            {label}
+            {required && <span className="text-primary">{' *'}</span>}
+          </Text>
+        </label>
+      )}
       <input
         disabled={disabled}
         type={type}
@@ -77,7 +89,7 @@ export const Input: FC<InputProps> = ({
       {hint && hint !== '' && (
         <div
           className={clsx(
-            'text-sm font-normal leading-[18px] mb-[2px]',
+            'text-sm font-normal leading-[18px] mt-1',
             state === 'error' ? 'text-danger' : 'text-dark-gray',
           )}
         >
@@ -86,4 +98,4 @@ export const Input: FC<InputProps> = ({
       )}
     </div>
   );
-};
+}

@@ -4,19 +4,19 @@ import { Input } from './Input';
 
 describe('<Input />', () => {
   beforeEach(() => {
-    jest.spyOn(Math, 'random').mockImplementation(() => 42);
+    jest.spyOn(global.Math, 'random').mockReturnValue(42);
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    jest.spyOn(global.Math, 'random').mockRestore();
   });
 
   it('should have correct placeholder, id and label', () => {
-    const { getByText, getByPlaceholderText } = render(
+    const { container, getByPlaceholderText } = render(
       <Input label="label" id="id" placeholder="placeholder" />,
     );
 
-    const renderedLabel = getByText('label');
+    const renderedLabel = container.querySelector('label');
     const renderedInput = getByPlaceholderText('placeholder');
 
     expect(renderedLabel).toBeTruthy();
@@ -26,11 +26,11 @@ describe('<Input />', () => {
   });
 
   it('should have correct ids for label when id is not presented', () => {
-    const { getByText, getByPlaceholderText } = render(
+    const { container, getByPlaceholderText } = render(
       <Input label="label" placeholder="placeholder" />,
     );
 
-    const renderedLabel = getByText('label');
+    const renderedLabel = container.querySelector('label');
     const renderedInput = getByPlaceholderText('placeholder');
 
     expect(renderedLabel).toBeTruthy();

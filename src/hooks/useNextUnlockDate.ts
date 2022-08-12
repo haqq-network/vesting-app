@@ -1,12 +1,9 @@
 import { useMemo } from 'react';
 
-export function useNextUnlockDate(
-  startDate: Date,
-  { period }: { period: number },
-): Date {
+export function useNextUnlockDate(startDate: Date, period: number): Date {
   const nextUnlockDate = useMemo(() => {
     const now = Date.now();
-    const offset = period * 24 * 60 * 60 * 1000;
+    const offset = period * 1000;
     let unlockTime = startDate.getTime();
 
     while (unlockTime <= now) {

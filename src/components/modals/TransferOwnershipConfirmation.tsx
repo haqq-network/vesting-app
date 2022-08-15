@@ -11,7 +11,7 @@ export function TransferOwnershipConfirmation({
   newOwnerAddress,
 }: TransferOwnershipConfirmationProps): ReactElement {
   return (
-    <div className="flex flex-col break-all">
+    <div className="flex flex-col break-normal">
       <div>
         <Text>
           Are you sure you want to transfer deposit ownership from address&nbsp;

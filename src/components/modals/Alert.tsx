@@ -8,9 +8,16 @@ export interface AlertProps {
   title: string;
   children: ReactNode;
   onClose: () => void;
+  onClick: () => void;
 }
 
-export function Alert({ isOpen, title, children, onClose }: AlertProps) {
+export function Alert({
+  isOpen,
+  title,
+  children,
+  onClose,
+  onClick,
+}: AlertProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="bg-white rounded-2xl p-6 max-w-max mx-auto">
@@ -23,8 +30,8 @@ export function Alert({ isOpen, title, children, onClose }: AlertProps) {
           <div>{children}</div>
 
           <div className="text-right">
-            <Button onClick={onClose} className="min-w-[120px]">
-              Close
+            <Button onClick={onClick} className="min-w-[120px]">
+              Continue
             </Button>
           </div>
         </div>

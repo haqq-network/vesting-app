@@ -24,6 +24,11 @@ export function TransferWidget() {
     setTranferPending(true);
   }, []);
 
+  const handleWarning = useCallback(() => {
+    setWarningModalOpen(false);
+    setWarned(true);
+  }, []);
+
   return (
     <Card className="overflow-hidden max-w-lg mx-auto w-full">
       <div className="p-6 flex flex-col space-y-4">
@@ -75,16 +80,15 @@ export function TransferWidget() {
           onClose={() => {
             setWarningModalOpen(false);
           }}
-          buttonTitle={'Proceed'}
-          onClick={() => {
-            setWarningModalOpen(false);
-            setWarned(true);
-          }}
+          onClick={handleWarning}
         >
           You are about to transfer deposit rights to another account. Are you
           sure you want to do this? Once it&apos;s done wallet&nbsp;
-          <Text bold>0xAAAA...</Text>&nbsp; won&apos;t be able to withdraw ISLM
-          from the deposit
+          <Text bold>0xe40be11F5e7C6bC390bC4caf0138229a82eF6664</Text>
+          &nbsp;won&apos;t be able to withdraw ISLM from the deposit.
+          <Text bold>
+            You will also transfer the rights to all already made deposits.
+          </Text>
         </Alert>
         <Confirm
           isOpen={isConfirmModalOpen}

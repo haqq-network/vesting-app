@@ -301,14 +301,15 @@ function Withdraw({ symbol, deposit, contractAddress }: any) {
         }}
         title="Withdraw success"
       >
-        <div>
+        <div className="flex flex-col">
           <div>
-            <b>
+            <Text bold>
               {formatEther(deposit.unlocked)} {symbol}
-            </b>{' '}
+            </Text>
             have been withdrawn on your account
           </div>
-          <div>Your transaction is {withdrawTx}</div>
+          <Text className="my-[2px]">Your transaction is</Text>
+          <Text bold>{withdrawTx}</Text>
         </div>
       </Alert>
     </Fragment>

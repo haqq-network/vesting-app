@@ -19,8 +19,6 @@ export const config: AppConfig = {
   publicUrl: process.env.PUBLIC_URL ?? '/',
 };
 
-console.log('vesting app config', config);
-
 const currency: Chain['nativeCurrency'] = {
   name: 'Islamic Coin',
   symbol: 'ISLM',

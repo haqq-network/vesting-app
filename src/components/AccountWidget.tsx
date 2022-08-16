@@ -132,7 +132,10 @@ function AccountAddress({ address }: { address: string | undefined }) {
           size={32}
           className="rounded-full leading-none flex-none"
         />
-        <div className="overflow-ellipsis text-lg font-medium overflow-hidden">
+        <div
+          className="overflow-ellipsis text-lg font-medium overflow-hidden"
+          title={address}
+        >
           {/* {`${address?.slice(0, 6)}...${address?.slice(-4)}`} */}
           {address}
         </div>
@@ -205,7 +208,7 @@ function AccountCard() {
               </Fragment>
             ) : (
               <Fragment>
-                <Text color="light" className="leading-[32px]" block>
+                <Text color="light" className="leading-[32px] mb-[6px]" block>
                   Current balance:
                 </Text>
                 <div className="text-5xl font-bold font-serif leading-[48px]">

@@ -1,7 +1,8 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Alert as AlertComponent, AlertProps } from './Alert';
-import { Confirm as ConfirmComponent, ConfirmProps } from './Alert';
+import { Confirm as ConfirmComponent, ConfirmProps } from './Confirm';
+import { Text } from '../Typography';
 
 export default {
   title: 'ui-kit/Modals',
@@ -34,4 +35,21 @@ Confirm.args = {
   children:
     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum perspiciatis pariatur praesentium possimus exercitationem blanditiis atque laborum, fuga dolorum ab odit aut minima, dolor doloribus delectus voluptas minus aspernatur cumque?',
   buttonTitle: 'Confirm',
+};
+
+export const WithdrawAlert = Template.bind({});
+WithdrawAlert.args = {
+  isOpen: true,
+  title: 'Withdraw alert',
+  children: (
+    <div className="flex flex-col">
+      <div>
+        <Text>2.0 ISLM</Text> have been withdrawn on your account
+      </div>
+      <Text className="my-[2px]">Your transaction is</Text>
+      <Text bold>
+        0xb4bc263278d3f77a652a8d73a6bfd8ec0ba1a63923bbb4f38147fb8a943da26d
+      </Text>
+    </div>
+  ),
 };

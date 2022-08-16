@@ -69,10 +69,11 @@ jobs:
           NETWORK: ${{ secrets.NETWORK }}
           SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
           CONTRACT_ADDRESS: ${{ secrets.CONTRACT_ADDRESS }}
-          PUBLIC_URL: '/vesting-app'
         run: |
           export BUILD_HASH=$(git rev-parse --short "$GITHUB_SHA")
-          yarn build --public-url ${{ env.PUBLIC_URL }}
+          yarn copy-static
+          yarn build
+          ls -alh dist
       - name: Upload application artifact
         uses: actions/upload-artifact@v3.1.0
         with:
@@ -116,4 +117,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          yarn gh-pages --dist dist --message 'chore: deploy to gh-pages' --user "github-actions-bot <support+actions@github.com>"
+          ls -alh dist
+          touch dist/.nojekyll
+          ls -alh dist
+          yarn gh-pages --dist ./dist --message 'chore: deploy to gh-pages' --user "github-actions-bot <support+actions@github.com>"

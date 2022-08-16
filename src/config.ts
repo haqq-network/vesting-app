@@ -49,8 +49,8 @@ export const chains: Record<string, Chain> = {
   },
   test: {
     id: 53211,
-    name: 'Haqq Testnet',
-    network: 'haqq-testnet',
+    name: 'Haqq Testedge',
+    network: 'haqq-testedge',
     rpcUrls: {
       default: 'https://rpc.eth.testedge.haqq.network',
     },

@@ -13,7 +13,7 @@ export interface AlertProps {
 export function Alert({ isOpen, title, children, onClose }: AlertProps) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="bg-white rounded-2xl p-6 max-w-xl mx-auto">
+      <div className="bg-white rounded-2xl p-6 max-w-max mx-auto">
         <div className="flex flex-col space-y-6">
           <div className="flex justify-between items-center">
             <Heading level={3}>{title}</Heading>

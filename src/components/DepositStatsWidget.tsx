@@ -19,9 +19,14 @@ import { Modal, ModalCloseButton } from './modals/Modal';
 import { Alert } from './modals/Alert';
 import { Confirm } from './modals/Confirm';
 import { Input } from './Input';
+import { BigNumber } from 'ethers';
 
 // TODO: Add typings
-function mapSCResponseToJson(dep: any, available: any, period: any) {
+function mapSCResponseToJson(
+  dep: Record<string, BigNumber>,
+  available: string,
+  period: BigNumber,
+) {
   const deposited = dep.sumInWeiDeposited;
   const withdrawn = dep.sumPaidAlready;
   const unlocked = dep.sumPaidAlready.add(available);
@@ -81,7 +86,9 @@ export function DepositStatsWidget({
     contractInterface: HaqqVestingContract.abi,
     signerOrProvider: provider,
   });
-  const [deposit, setDeposit] = useState<any>(null);
+  const [deposit, setDeposit] = useState<ReturnType<
+    typeof mapSCResponseToJson
+  > | null>(null);
   const [depositsCount, setDepositsCount] = useState<number>(0);
   const [currentDeposit, setCurrentDeposit] = useState<number>(0);
   // const [isWithdrawRequested, setWithdrawRequested] = useState<boolean>(false);
@@ -169,13 +176,13 @@ export function DepositStatsWidget({
             <Fragment>
               <DepositInfo
                 deposit={deposit}
-                symbol={chain.nativeCurrency.symbol ?? ''}
+                symbol={chain.nativeCurrency?.symbol ?? ''}
               />
 
               <div className="flex flex-col space-y-4 px-6 pb-6">
                 <Withdraw
                   deposit={deposit}
-                  symbol={chain.nativeCurrency.symbol ?? ''}
+                  symbol={chain.nativeCurrency?.symbol ?? ''}
                   contractAddress={contractAddress}
                 />
                 <Transfer deposit={deposit} contractAddress={contractAddress} />

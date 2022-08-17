@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
 import { getChain } from '../config';
 import { useOnboarding } from '../OnboardingContainer';
-import { Button } from '../components/Button';
-import { AlertWithDetails } from '../components/modals/AlertWithDetails';
-import { Heading, Text } from '../components/Typography';
+import { Button } from './Button';
+import { AlertWithDetails } from './modals/AlertWithDetails';
+import { Heading, Text } from './Typography';
 
 function SwitchNetworkNetworkContainer({
   networkName,
 }: {
-  networkName: string;
+  networkName?: string;
 }) {
   return (
     <div className="bg-white rounded-md md:max-w-[200px] flex-1 flex flex-col space-y-3 justify-center items-center shadow-lg px-6 py-8 md:py-6 w-full">
@@ -27,13 +27,13 @@ function SwitchNetworkNetworkContainer({
       </svg>
 
       <Text color="light" className="text-center">
-        {networkName}
+        {networkName ?? 'unknown'}
       </Text>
     </div>
   );
 }
 
-export function SwitchNetworkPage(): ReactElement {
+export function SwitchNetworkScreen(): ReactElement {
   const {
     errors: { switchNetworkError },
     clearError,
@@ -53,7 +53,9 @@ export function SwitchNetworkPage(): ReactElement {
       </div>
 
       <div className="flex flex-col md:flex-row items-center justify-between mt-[24px]">
-        <SwitchNetworkNetworkContainer networkName={window.ethereum.chainId} />
+        <SwitchNetworkNetworkContainer
+          networkName={window?.ethereum?.chainId}
+        />
         <div className="flex-1">
           <svg
             className="w-[120%] text-gray-400 ml-[-10%]"
@@ -117,7 +119,9 @@ export function SwitchNetworkPage(): ReactElement {
         title="Switch network error"
         message="Something went wrong and we can't switch network"
         details={switchNetworkError?.message}
-        onClose={() => clearError('switchNetworkError')}
+        onClose={() => {
+          clearError('switchNetworkError');
+        }}
       />
     </div>
   );

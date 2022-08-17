@@ -56,7 +56,6 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   }, []);
 
   const handleConnectWallet = useCallback(async () => {
-    console.log('handleConnectWallet');
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       handleConnectWagmi();
     } else {
@@ -71,7 +70,7 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
   }, []);
 
   const handleNetworkSwitch = useCallback(async () => {
-    console.log('handleNetworkSwitch');
+    // console.log('handleNetworkSwitch');
     const { ethereum } = window;
 
     if (ethereum) {

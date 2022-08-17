@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 import { useOnboarding } from '../OnboardingContainer';
 import { AccountButton } from './AccountButton';
@@ -11,14 +11,6 @@ export function ConnectButton() {
   });
   const { disconnect } = useDisconnect();
   const { connectWallet } = useOnboarding();
-
-  const handleConnect = useCallback(() => {
-    connectWallet();
-  }, [connectWallet]);
-
-  const handleDisconnect = useCallback(() => {
-    disconnect();
-  }, [disconnect]);
 
   const account = useMemo(() => {
     if (!isConnected || !address) {
@@ -33,8 +25,8 @@ export function ConnectButton() {
 
   return (
     <AccountButton
-      onConnectClick={handleConnect}
-      onDisconnectClick={handleDisconnect}
+      onConnectClick={connectWallet}
+      onDisconnectClick={disconnect}
       account={account}
     />
   );

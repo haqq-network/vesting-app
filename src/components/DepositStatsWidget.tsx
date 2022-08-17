@@ -16,7 +16,6 @@ import { Button, DangerButton } from './Button';
 import { DepositNavigation } from './DepositNavigation';
 import { useNextUnlockDate } from '../hooks/useNextUnlockDate';
 import { Modal, ModalCloseButton } from './modals/Modal';
-
 import { Alert } from './modals/Alert';
 import { Confirm } from './modals/Confirm';
 import { Input } from './Input';
@@ -176,7 +175,7 @@ export function DepositStatsWidget({
               <div className="flex flex-col space-y-4 px-6 pb-6">
                 <Withdraw
                   deposit={deposit}
-                  symbol={chain.nativeCurrency.symbol}
+                  symbol={chain.nativeCurrency.symbol ?? ''}
                   contractAddress={contractAddress}
                 />
                 <Transfer deposit={deposit} contractAddress={contractAddress} />

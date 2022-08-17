@@ -7,7 +7,7 @@ import { Loader } from './Loader';
 interface WithdrawMarkupProps {
   children?: ReactNode;
   className?: string;
-  isTranferPending?: boolean;
+  isTransferPending?: boolean;
   isWithdrawSuccess?: boolean;
   isError?: boolean;
   fill?: boolean;
@@ -20,7 +20,7 @@ interface WithdrawMarkupProps {
 export function WithdrawMarkup({
   children = 'Request Withdrawal',
   className,
-  isTranferPending = false,
+  isTransferPending = false,
   isWithdrawSuccess = false,
   isError = false,
   fill,
@@ -30,13 +30,13 @@ export function WithdrawMarkup({
   disabled,
 }: WithdrawMarkupProps) {
   const classNames = clsx(
-    isTranferPending ? 'text-light-gray' : '',
-    isWithdrawSuccess ? 'text-primary' : '',
-    isError ? 'text-danger' : '',
+    {
+      'text-light-gray': isTransferPending,
+      'text-primary': isWithdrawSuccess,
+      'text-danger': isError,
+    },
     className,
   );
-
-  console.log(classNames);
 
   return (
     <Fragment>
@@ -58,7 +58,7 @@ export function WithdrawMarkup({
       </div>
       <div>
         <Button fill={fill} onClick={onClick} disabled={disabled}>
-          {isTranferPending ? (
+          {isTransferPending ? (
             <div className="flex justify-center">
               <Loader />
             </div>

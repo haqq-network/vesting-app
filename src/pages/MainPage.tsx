@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useOnboarding } from '../OnboardingContainer';
 import { Button } from '../components/Button';
 import { Heading, Text } from '../components/Typography';
@@ -8,7 +8,7 @@ import { AddNetworkScreen } from '../components/AddNetworkScreen';
 import { SwitchNetworkScreen } from '../components/SwitchNetworkScreen';
 
 export function WelcomeScreen() {
-  const { connectWallet, isConnected, step } = useOnboarding();
+  const { connectWallet, isConnected } = useOnboarding();
   const navigate = useNavigate();
 
   const handleGoToAccount = useCallback(() => {

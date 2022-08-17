@@ -75,8 +75,7 @@ export function Header({ links }: HeaderProps): ReactElement {
           <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
               <NavLink to="/">
-                <Logo className="block lg:hidden h-8 w-auto" />
-                <Logo className="hidden lg:block h-8 w-auto" />
+                <Logo className="hidden sm:block h-8 w-auto" />
               </NavLink>
             </div>
             {headerLinks && (

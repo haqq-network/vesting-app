@@ -22,14 +22,42 @@ import { Input } from './Input';
 import { BigNumber } from 'ethers';
 
 // TODO: Add typings
+
+interface Contract {
+  sumInWeiDeposited: BigNumber;
+  sumPaidAlready: BigNumber;
+  timestamp: BigNumber;
+}
+
+interface DepositInfoArgs {
+  deposit: Deposit;
+  symbol: string;
+}
+
+interface TransferAndWithdrawArgs {
+  deposit: Deposit;
+  contractAddress: string;
+  symbol: string;
+}
+
+interface Deposit {
+  locked: BigNumber;
+  unlocked: BigNumber;
+  available: BigNumber;
+  deposited: BigNumber;
+  withdrawn: BigNumber;
+  createdAt: string;
+  unlockPeriod: number;
+}
+
 function mapSCResponseToJson(
-  dep: Record<string, BigNumber>,
-  available: string,
+  contract: Contract,
+  available: BigNumber,
   period: BigNumber,
 ) {
-  const deposited = dep.sumInWeiDeposited;
-  const withdrawn = dep.sumPaidAlready;
-  const unlocked = dep.sumPaidAlready.add(available);
+  const deposited = contract.sumInWeiDeposited;
+  const withdrawn = contract.sumPaidAlready;
+  const unlocked = contract.sumPaidAlready.add(available);
   const locked = deposited.sub(unlocked);
 
   return {
@@ -38,7 +66,7 @@ function mapSCResponseToJson(
     available,
     deposited,
     withdrawn,
-    createdAt: new Date(dep.timestamp.toNumber() * 1000).toISOString(),
+    createdAt: new Date(contract.timestamp.toNumber() * 1000).toISOString(),
     unlockPeriod: period.toNumber(),
   };
 }
@@ -86,9 +114,7 @@ export function DepositStatsWidget({
     contractInterface: HaqqVestingContract.abi,
     signerOrProvider: provider,
   });
-  const [deposit, setDeposit] = useState<ReturnType<
-    typeof mapSCResponseToJson
-  > | null>(null);
+  const [deposit, setDeposit] = useState<Deposit | null>(null);
   const [depositsCount, setDepositsCount] = useState<number>(0);
   const [currentDeposit, setCurrentDeposit] = useState<number>(0);
   // const [isWithdrawRequested, setWithdrawRequested] = useState<boolean>(false);
@@ -185,7 +211,11 @@ export function DepositStatsWidget({
                   symbol={chain.nativeCurrency?.symbol ?? ''}
                   contractAddress={contractAddress}
                 />
-                <Transfer deposit={deposit} contractAddress={contractAddress} />
+                <Transfer
+                  deposit={deposit}
+                  symbol={chain.nativeCurrency?.symbol ?? ''}
+                  contractAddress={contractAddress}
+                />
 
                 {/* <Button
                   fill
@@ -203,7 +233,7 @@ export function DepositStatsWidget({
   );
 }
 
-function DepositInfo({ deposit, symbol }: any) {
+function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
   return (
     <div className="flex flex-col space-y-2 px-6">
       <StatsRow
@@ -245,7 +275,11 @@ function DepositInfo({ deposit, symbol }: any) {
   );
 }
 
-function Withdraw({ symbol, deposit, contractAddress }: any) {
+function Withdraw({
+  symbol,
+  deposit,
+  contractAddress,
+}: TransferAndWithdrawArgs) {
   const { address } = useAccount();
   const { data: signer } = useSigner();
   const contract = useContract({
@@ -321,7 +355,7 @@ function Withdraw({ symbol, deposit, contractAddress }: any) {
   );
 }
 
-function Transfer({ contractAddress, symbol }: any) {
+function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
   const { address } = useAccount();
   const { data: signer } = useSigner();
   const contract = useContract({

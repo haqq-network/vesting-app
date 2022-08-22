@@ -61,7 +61,7 @@
     "@types/eslint": "8.4.5",
     "@types/events": "3.0.0",
     "@types/jest": "28.1.7",
-    "@types/node": "18.7.6",
+    "@types/node": "18.7.9",
     "@types/postcss-import": "14.0.0",
     "@types/prettier": "2.7.0",
     "@types/react": "18.0.17",

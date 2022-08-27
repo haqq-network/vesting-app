@@ -257,15 +257,15 @@ function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
       />
       <StatsRow
         label="Unlocked"
-        value={`${formatEther(deposit.unlocked)} ${symbol}`}
+        value={`${Number(formatEther(deposit.unlocked)).toFixed(3)} ${symbol}`}
       />
       <StatsRow
         label="Withdrawn"
-        value={`${formatEther(deposit.withdrawn)} ${symbol}`}
+        value={`${Number(formatEther(deposit.withdrawn)).toFixed(3)} ${symbol}`}
       />
       <StatsRow
         label="Available"
-        value={`${formatEther(deposit.available)} ${symbol}`}
+        value={`${Number(formatEther(deposit.available)).toFixed(3)} ${symbol}`}
       />
       <NextDepositUnlock
         createdAt={deposit.createdAt}

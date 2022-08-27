@@ -15,6 +15,7 @@ import { Tooltip } from './Tooltip';
 import { useClipboard } from '../hooks/useClipboard';
 import { CopyIcon, DisconnectIcon } from './Icons';
 import { AlertWithDetails } from './modals/AlertWithDetails';
+import { getFormattedAddress } from '../utils/getFormattedAddress';
 
 function CardIconButton({
   children,
@@ -193,7 +194,7 @@ function AccountCard() {
   return (
     <div className="rounded-[12px] bg-light-green border border-primary border-opacity-20 h-[200px] relative">
       <div className="p-4 flex flex-col space-y-4 justify-between content-between h-full">
-        <AccountAddress address={address} />
+        <AccountAddress address={getFormattedAddress(address)} />
         <div className="flex flex-row items-center">
           <div className="flex-1">
             {isLoading || balance === undefined ? (

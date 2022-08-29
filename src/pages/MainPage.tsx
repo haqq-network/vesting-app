@@ -18,7 +18,6 @@ export function WelcomeScreen() {
   return (
     <div className="flex flex-col space-y-12">
       <Heading level={1}>
-        The first <br />
         Shariah-compliant <br />
         digital money
       </Heading>

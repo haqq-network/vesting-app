@@ -16,6 +16,7 @@ import { useClipboard } from '../hooks/useClipboard';
 import { CopyIcon, DisconnectIcon } from './Icons';
 import { AlertWithDetails } from './modals/AlertWithDetails';
 import { getFormattedAddress } from '../utils/getFormattedAddress';
+import accountWidgetBgSrc from '../assets/account-widget-bg.svg';
 
 function CardIconButton({
   children,
@@ -35,12 +36,13 @@ function CardIconButton({
 }
 
 function DisconnectButton() {
-  const { disconnect } = useDisconnect();
+  // const { disconnect } = useDisconnect();
 
   return (
     <CardIconButton
       onClick={() => {
-        disconnect();
+        // disconnect();
+        console.log('disconnect');
       }}
     >
       <DisconnectIcon />
@@ -61,70 +63,8 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-// TODO: add link to explorer
-export function AccountWidget() {
-  const { address, isConnected } = useAccount();
-
-  return (
-    <Card className="max-w-lg mx-auto w-full">
-      <div className="p-6 flex flex-col space-y-4">
-        <div className="flex flex-row items-center justify-between">
-          <Heading level={3} className="uppercase inline-flex">
-            Account
-          </Heading>
-          {isConnected && (
-            <div className="flex flex-row space-x-3 mt-[-4px]">
-              {address && (
-                <Tooltip text="Copy address">
-                  <CopyButton text={address} />
-                </Tooltip>
-              )}
-
-              {/* <Tooltip text="Go to scanner">
-                <a
-                  href="http://haqq.network"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <CardIconButton>
-                    <ScanIcon />
-                  </CardIconButton>
-                </a>
-              </Tooltip> */}
-              <Tooltip text="Disconnect">
-                <DisconnectButton />
-              </Tooltip>
-            </div>
-          )}
-        </div>
-
-        <AccountCard />
-
-        {/* <div className="flex flex-row justify-between">
-            <Button outline className="min-w-[140px]" onClick={handleModalOpen}>
-              Swap
-            </Button>
-            <Button outline className="min-w-[140px]">
-              Send
-            </Button>
-          </div> */}
-      </div>
-    </Card>
-  );
-}
-
-function AccountAddress({ address }: { address: string | undefined }) {
-  if (address === undefined) {
-    return (
-      <div className="animate-pulse opacity-30 flex flex-row space-x-10">
-        <div className="flex space-x-2 flex-row items-center h-[32px] flex-1">
-          <div className="rounded-full bg-primary h-[32px] w-[32px] flex-none opacity-30"></div>
-          <div className="h-[12px] bg-primary rounded-md flex-1 max-w-[240px] opacity-30"></div>
-        </div>
-      </div>
-    );
-  }
-
+function AccountAddress({ address }: { address: string }) {
+  console.log({ address });
   return (
     <div className="flex flex-row space-x-2 items-center">
       <div className="flex flex-row space-x-2 items-center h-[32px] flex-1 overflow-hidden">
@@ -134,18 +74,17 @@ function AccountAddress({ address }: { address: string | undefined }) {
           className="rounded-full leading-none flex-none"
         />
         <div
-          className="overflow-ellipsis text-lg font-medium overflow-hidden"
+          className="overflow-ellipsis text-base font-medium overflow-hidden text-white"
           title={address}
         >
-          {/* {`${address?.slice(0, 6)}...${address?.slice(-4)}`} */}
-          {address}
+          {getFormattedAddress(address, 6)}
         </div>
       </div>
 
       {/* <Tooltip text="Copy address">
         <CopyButton text={address} />
-      </Tooltip>
-
+      </Tooltip> */}
+      {/*
       <Tooltip text="Go to scanner">
         <a href="http://haqq.network" target="_blank" rel="noopener noreferrer">
           <CardIconButton>
@@ -169,35 +108,36 @@ const AccountCardBgImage = styled.svg`
 
 function AccountCard() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { address } = useAccount();
-  const {
-    data: balance,
-    isError,
-    isLoading,
-    status,
-    error,
-  } = useBalance({
-    addressOrName: address,
-    watch: true,
-  });
+  // const { address } = useAccount();
+  // const {
+  //   data: balance,
+  //   isError,
+  //   isLoading,
+  //   status,
+  //   error,
+  // } = useBalance({
+  //   addressOrName: address,
+  //   watch: true,
+  // });
 
   const handleModalClose = useCallback(() => {
     setModalOpen(false);
   }, []);
 
-  useEffect(() => {
-    if (isError || status === 'error') {
-      setModalOpen(true);
-    }
-  }, [isError, status]);
+  // useEffect(() => {
+  //   if (isError || status === 'error') {
+  //     setModalOpen(true);
+  //   }
+  // }, [isError, status]);
 
+  const address = '0x664B07EA8969d643B0aCc4829c113F6C20514F65';
   return (
     <div className="rounded-[12px] bg-light-green border border-primary border-opacity-20 h-[200px] relative">
       <div className="p-4 flex flex-col space-y-4 justify-between content-between h-full">
-        <AccountAddress address={getFormattedAddress(address)} />
+        <AccountAddress address={address} />
         <div className="flex flex-row items-center">
           <div className="flex-1">
-            {isLoading || balance === undefined ? (
+            {/* {isLoading || balance === undefined ? (
               <Fragment>
                 <div className="animate-pulse opacity-30">
                   <div className="h-[16px] bg-primary rounded-md w-[110px] opacity-30 mb-1"></div>
@@ -217,7 +157,7 @@ function AccountCard() {
                   {balance.symbol.toLocaleUpperCase()}
                 </div>
               </Fragment>
-            )}
+            )} */}
           </div>
         </div>
       </div>
@@ -236,15 +176,117 @@ function AccountCard() {
         />
       </AccountCardBgImage>
 
-      <AlertWithDetails
+      {/* <AlertWithDetails
         isOpen={isModalOpen}
         title="Balance update error"
         message={`Something went wrong and we cant get your balance. Please try again.`}
         details={error?.message}
         onClose={handleModalClose}
-      />
+      /> */}
     </div>
   );
 }
 
-export { AccountWidget as default };
+function AccountSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="h-[14px] bg-[#0eb471] rounded-[4px] w-[60px] mb-2 mt-1"></div>
+      <div className="flex space-x-2 flex-row items-center h-[32px] flex-1">
+        <div className="rounded-full bg-[#0eb471] h-[32px] w-[32px] flex-none"></div>
+        <div className="h-[16px] bg-[#0eb471] rounded-[4px] flex-1 max-w-[110px]"></div>
+      </div>
+    </div>
+  );
+}
+
+function BalanceSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="h-[16px] bg-[#0eb471] rounded-[4px] w-[110px] mb-2"></div>
+      <div className="flex flex-row space-x-4 items-center mb-2">
+        <div className="h-[40px] bg-[#0eb471] rounded-[4px] w-[140px] "></div>
+        <div className="h-[40px] bg-[#0eb471] rounded-[4px] w-[80px] "></div>
+      </div>
+    </div>
+  );
+}
+
+const AccountWidgetBackground = styled.img`
+  position: absolute;
+  z-index: 0;
+  right: -50px;
+  bottom: -50px;
+  pointer-events: none;
+  user-select: none;
+`;
+
+interface AccountWidgetProps {
+  isConnected: boolean;
+  address: string;
+  balance: number;
+  symbol: string;
+}
+
+export function AccountWidget({
+  isConnected,
+  address,
+  balance,
+  symbol,
+}: AccountWidgetProps) {
+  return (
+    <div className="max-w-lg mx-auto bg-[#06BE77] rounded-[16px] relative overflow-clip h-[220px] w-full">
+      <AccountWidgetBackground src={accountWidgetBgSrc} />
+
+      <div className="p-6 flex h-full flex-col relative z-10 justify-between">
+        {isConnected ? (
+          <Fragment>
+            <div>
+              <div className="leading-normal text-sm md:text-base text-white/80 mb-1">
+                Account
+              </div>
+              <AccountAddress address={address} />
+            </div>
+            <div>
+              <div className="leading-normal text-sm md:text-base text-white/80">
+                Current balance
+              </div>
+              <div className="leading-light text-4xl md:text-5xl font-serif font-medium md:mt-1 text-white">
+                {balance.toLocaleString()} {symbol.toLocaleUpperCase()}
+              </div>
+            </div>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <AccountSkeleton />
+            <BalanceSkeleton />
+          </Fragment>
+        )}
+      </div>
+    </div>
+  );
+}
+
+{
+  /* <AccountCard /> */
+}
+//  <Tooltip text="Disconnect">
+//    <DisconnectButton />
+//  </Tooltip>
+
+// <Tooltip text="Copy address">
+//   <CopyButton text={address} />
+// </Tooltip>
+
+{
+  /* <Tooltip text="Go to scanner">
+  <a
+    href="http://haqq.network"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <CardIconButton>
+      <ScanIcon />
+    </CardIconButton>
+  </a>
+</Tooltip> */
+}

@@ -4,21 +4,21 @@ import { WithdrawMarkup } from './WithdrawMarkup';
 
 export function WithdrawWidget() {
   const [isWithdrawSuccess, setWithdrawSuccess] = useState<boolean>(false);
-  const [isTranferPending, setTranferPending] = useState<boolean>(false);
+  const [isTransferPending, setTransferPending] = useState<boolean>(false);
   const [isError, setError] = useState<boolean>(false);
 
   const handleSuccessState = useCallback(() => {
-    setTranferPending(true);
+    setTransferPending(true);
     setTimeout(() => {
-      setTranferPending(false);
+      setTransferPending(false);
     }, 5000);
     setWithdrawSuccess(true);
   }, []);
 
   const handleErrorState = useCallback(() => {
-    setTranferPending(true);
+    setTransferPending(true);
     setTimeout(() => {
-      setTranferPending(false);
+      setTransferPending(false);
     }, 5000);
     setWithdrawSuccess(false);
     setError(true);
@@ -27,11 +27,11 @@ export function WithdrawWidget() {
   return (
     <Card className="overflow-hidden max-w-lg mx-auto w-full">
       <div className="p-6 flex flex-col space-y-4">
-        {isTranferPending ? (
+        {isTransferPending ? (
           <WithdrawMarkup
             mainText="Please wait while your request is being processed..."
             headingText="2nd state pending"
-            isTranferPending={true}
+            isTransferPending={true}
             onClick={handleErrorState}
             fill
             disabled

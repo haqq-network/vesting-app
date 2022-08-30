@@ -1,8 +1,8 @@
 import React, { ReactElement, ReactNode } from 'react';
 import { getChain } from '../config';
-import { Button } from '../components/Button';
-import { AlertWithDetails } from '../components/modals/AlertWithDetails';
-import { Heading, Text } from '../components/Typography';
+import { Button } from './Button';
+import { AlertWithDetails } from './modals/AlertWithDetails';
+import { Heading, Text } from './Typography';
 import { useOnboarding } from '../OnboardingContainer';
 
 function AddNetworkDetailsItem({
@@ -20,7 +20,7 @@ function AddNetworkDetailsItem({
   );
 }
 
-export function AddNetworkPage(): ReactElement {
+export function AddNetworkScreen(): ReactElement {
   const chain = getChain();
   const {
     errors: { addNetworkError },

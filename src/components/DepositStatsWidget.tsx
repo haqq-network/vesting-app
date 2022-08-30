@@ -16,16 +16,48 @@ import { Button, DangerButton } from './Button';
 import { DepositNavigation } from './DepositNavigation';
 import { useNextUnlockDate } from '../hooks/useNextUnlockDate';
 import { Modal, ModalCloseButton } from './modals/Modal';
-
 import { Alert } from './modals/Alert';
 import { Confirm } from './modals/Confirm';
 import { Input } from './Input';
+import { BigNumber } from 'ethers';
 
 // TODO: Add typings
-function mapSCResponseToJson(dep: any, available: any, period: any) {
-  const deposited = dep.sumInWeiDeposited;
-  const withdrawn = dep.sumPaidAlready;
-  const unlocked = dep.sumPaidAlready.add(available);
+
+interface Contract {
+  sumInWeiDeposited: BigNumber;
+  sumPaidAlready: BigNumber;
+  timestamp: BigNumber;
+}
+
+interface DepositInfoArgs {
+  deposit: Deposit;
+  symbol: string;
+}
+
+interface TransferAndWithdrawArgs {
+  deposit: Deposit;
+  contractAddress: string;
+  symbol: string;
+}
+
+interface Deposit {
+  locked: BigNumber;
+  unlocked: BigNumber;
+  available: BigNumber;
+  deposited: BigNumber;
+  withdrawn: BigNumber;
+  createdAt: string;
+  unlockPeriod: number;
+}
+
+function mapSCResponseToJson(
+  contract: Contract,
+  available: BigNumber,
+  period: BigNumber,
+) {
+  const deposited = contract.sumInWeiDeposited;
+  const withdrawn = contract.sumPaidAlready;
+  const unlocked = contract.sumPaidAlready.add(available);
   const locked = deposited.sub(unlocked);
 
   return {
@@ -34,7 +66,7 @@ function mapSCResponseToJson(dep: any, available: any, period: any) {
     available,
     deposited,
     withdrawn,
-    createdAt: new Date(dep.timestamp.toNumber() * 1000).toISOString(),
+    createdAt: new Date(contract.timestamp.toNumber() * 1000).toISOString(),
     unlockPeriod: period.toNumber(),
   };
 }
@@ -82,7 +114,7 @@ export function DepositStatsWidget({
     contractInterface: HaqqVestingContract.abi,
     signerOrProvider: provider,
   });
-  const [deposit, setDeposit] = useState<any>(null);
+  const [deposit, setDeposit] = useState<Deposit | null>(null);
   const [depositsCount, setDepositsCount] = useState<number>(0);
   const [currentDeposit, setCurrentDeposit] = useState<number>(0);
   // const [isWithdrawRequested, setWithdrawRequested] = useState<boolean>(false);
@@ -170,16 +202,20 @@ export function DepositStatsWidget({
             <Fragment>
               <DepositInfo
                 deposit={deposit}
-                symbol={chain.nativeCurrency.symbol ?? ''}
+                symbol={chain.nativeCurrency?.symbol ?? ''}
               />
 
               <div className="flex flex-col space-y-4 px-6 pb-6">
                 <Withdraw
                   deposit={deposit}
-                  symbol={chain.nativeCurrency.symbol}
+                  symbol={chain.nativeCurrency?.symbol ?? ''}
                   contractAddress={contractAddress}
                 />
-                <Transfer deposit={deposit} contractAddress={contractAddress} />
+                <Transfer
+                  deposit={deposit}
+                  symbol={chain.nativeCurrency?.symbol ?? ''}
+                  contractAddress={contractAddress}
+                />
 
                 {/* <Button
                   fill
@@ -197,7 +233,7 @@ export function DepositStatsWidget({
   );
 }
 
-function DepositInfo({ deposit, symbol }: any) {
+function DepositInfo({ deposit, symbol }: DepositInfoArgs) {
   return (
     <div className="flex flex-col space-y-2 px-6">
       <StatsRow
@@ -221,15 +257,15 @@ function DepositInfo({ deposit, symbol }: any) {
       />
       <StatsRow
         label="Unlocked"
-        value={`${formatEther(deposit.unlocked)} ${symbol}`}
+        value={`${Number(formatEther(deposit.unlocked)).toFixed(3)} ${symbol}`}
       />
       <StatsRow
         label="Withdrawn"
-        value={`${formatEther(deposit.withdrawn)} ${symbol}`}
+        value={`${Number(formatEther(deposit.withdrawn)).toFixed(3)} ${symbol}`}
       />
       <StatsRow
         label="Available"
-        value={`${formatEther(deposit.available)} ${symbol}`}
+        value={`${Number(formatEther(deposit.available)).toFixed(3)} ${symbol}`}
       />
       <NextDepositUnlock
         createdAt={deposit.createdAt}
@@ -239,7 +275,11 @@ function DepositInfo({ deposit, symbol }: any) {
   );
 }
 
-function Withdraw({ symbol, deposit, contractAddress }: any) {
+function Withdraw({
+  symbol,
+  deposit,
+  contractAddress,
+}: TransferAndWithdrawArgs) {
   const { address } = useAccount();
   const { data: signer } = useSigner();
   const contract = useContract({
@@ -316,7 +356,7 @@ function Withdraw({ symbol, deposit, contractAddress }: any) {
   );
 }
 
-function Transfer({ contractAddress, symbol }: any) {
+function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
   const { address } = useAccount();
   const { data: signer } = useSigner();
   const contract = useContract({

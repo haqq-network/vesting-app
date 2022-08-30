@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
+import { getChain } from '../config';
 import { useOnboarding } from '../OnboardingContainer';
 import { AccountButton } from './AccountButton';
 
@@ -11,6 +12,18 @@ export function ConnectButton() {
   });
   const { disconnect } = useDisconnect();
   const { connectWallet } = useOnboarding();
+  const chain = getChain();
+
+  const accBalance = useMemo(() => {
+    if (!balance) {
+      return undefined;
+    }
+
+    return {
+      value: Number.parseFloat(balance.formatted),
+      symbol: chain.nativeCurrency.symbol,
+    };
+  }, [balance, chain.nativeCurrency.symbol]);
 
   const account = useMemo(() => {
     if (!isConnected || !address) {
@@ -19,9 +32,9 @@ export function ConnectButton() {
 
     return {
       address,
-      balance,
+      balance: accBalance,
     };
-  }, [address, balance, isConnected]);
+  }, [address, accBalance, isConnected]);
 
   return (
     <AccountButton

@@ -9,9 +9,9 @@ interface CardProps {
 }
 
 const CardStyled = styled.div<{ withShadow?: boolean }>`
-  /* box-shadow: ${({ withShadow }) => {
+  box-shadow: ${({ withShadow }) => {
     return withShadow ? '0px 8px 24px rgba(15, 30, 51, 0.08)' : 'none';
-  }}; */
+  }};
 `;
 
 export function Card({

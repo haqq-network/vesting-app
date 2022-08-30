@@ -20,8 +20,7 @@ import { Alert } from './modals/Alert';
 import { Confirm } from './modals/Confirm';
 import { Input } from './Input';
 import { BigNumber } from 'ethers';
-
-// TODO: Add typings
+import { AlertWithDetails } from './modals/AlertWithDetails';
 
 interface Contract {
   sumInWeiDeposited: BigNumber;
@@ -324,15 +323,15 @@ function Withdraw({
         {isPending ? 'Processing withdraw' : 'Withdraw'}
       </Button>
 
-      <Alert
+      <AlertWithDetails
         isOpen={Boolean(error)}
         onClose={() => {
           setError(undefined);
         }}
         title="Withdraw failure"
-      >
-        {error}
-      </Alert>
+        message={`Something went wrong and we cant complete your withdrawal. Please try again.`}
+        details={error}
+      />
 
       <Alert
         isOpen={isComplete}
@@ -383,7 +382,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
         newBeneficiaryAddress,
       );
 
-      console.log({ transfer });
+      // console.log({ transfer });
       setTransferTx(transfer.hash);
       setComplete(true);
     } catch (error: any) {
@@ -468,7 +467,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
               />
             </div>
 
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-2 break-words">
               <Text>
                 You are about to transfer deposit rights to another account.
               </Text>
@@ -480,15 +479,15 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
             </div>
 
             <div className="text-right">
-              <Button
+              <DangerButton
                 onClick={() => {
                   setWarningModalOpen(false);
                   setWarned(true);
                 }}
                 className="px-10"
               >
-                Agree
-              </Button>
+                Yes, I'm sure
+              </DangerButton>
             </div>
           </div>
         </div>
@@ -501,7 +500,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
         buttonTitle="Yes, I'm sure!"
         onConfirm={handleTransfer}
       >
-        <div>
+        <div className="break-words">
           Are you sure you want to transfer deposit ownership from{' '}
           <b>{address}</b> to <b>{newBeneficiaryAddress}</b>?
         </div>
@@ -522,7 +521,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
         onClose={handleResetTransferState}
         title="Transfer ownership success"
       >
-        <div>
+        <div className="break-words">
           <div>
             Deposit ownership was successfully transferred to{' '}
             <b>{newBeneficiaryAddress}</b>
@@ -533,5 +532,3 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
     </Fragment>
   );
 }
-
-export { DepositStatsWidget as default };

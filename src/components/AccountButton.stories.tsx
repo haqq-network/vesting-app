@@ -15,16 +15,14 @@ const Template: ComponentStory<typeof AccountButton> = (
 ) => <AccountButton {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  // address: '0xD090340493b9A23D2E695d2745BA7D7a4e8f836b',
-  // size: 128,
-};
 
 export const Connected = Template.bind({});
 Connected.args = {
   account: {
     address: '0xD090340493b9A23D2E695d2745BA7D7a4e8f836b',
-    balance: '987.00',
+    balance: {
+      value: 131627637.123467,
+      symbol: 'islm',
+    },
   },
-  symbol: 'islm',
 };

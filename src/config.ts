@@ -1,4 +1,3 @@
-import type { Chain } from 'wagmi';
 import { version } from '../package.json';
 
 const buildHash = process.env.BUILD_HASH ?? 'dev';
@@ -19,6 +18,19 @@ export const config: AppConfig = {
   publicUrl: process.env.PUBLIC_URL ?? '/',
 };
 
+interface Chain {
+  id: number;
+  name: string;
+  network: string;
+  rpcUrls: Record<string, string>;
+  nativeCurrency: {
+    name: string;
+    symbol: string;
+    decimals: number;
+  };
+  testnet: boolean;
+}
+
 const currency: Chain['nativeCurrency'] = {
   name: 'Islamic Coin',
   symbol: 'ISLM',
@@ -27,7 +39,7 @@ const currency: Chain['nativeCurrency'] = {
 
 export const chains: Record<string, Chain> = {
   local: {
-    id: 1337,
+    id: 5777,
     name: 'Haqq Localnet',
     network: 'haqq-localnet',
     rpcUrls: {

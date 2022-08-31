@@ -27,7 +27,7 @@ export function Header({ links }: HeaderProps): ReactElement {
   }, [links]);
 
   return (
-    <header className="backdrop-filter backdrop-blur transform-gpu bg-white/70 border-light-gray border-b">
+    <header className="hidden lg:inline backdrop-filter backdrop-blur transform-gpu bg-white/70 border-light-gray border-b">
       <Container>
         <div className="relative flex items-center justify-between h-[64px]">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

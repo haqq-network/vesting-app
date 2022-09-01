@@ -131,8 +131,6 @@ export function OnboardingContainer({ children }: { children: ReactElement }) {
       const currentChainId = window?.ethereum?.networkVersion
         ? Number.parseInt(window?.ethereum?.networkVersion, 10)
         : null;
-
-      console.log({ address, currentChainId, chainId: chain.id });
       if (currentChainId !== chain.id) {
         setOnboardingStep('switch-network');
       } else {

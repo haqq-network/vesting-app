@@ -2,7 +2,6 @@ import React, { Fragment, ReactElement, ReactNode } from 'react';
 import clsx from 'clsx';
 import { Button } from './Button';
 import { IdentIcon } from './IdentIcon';
-import type { BigNumber } from 'ethers';
 import { Menu, Transition } from '@headlessui/react';
 import { getFormattedAddress } from '../utils/getFormattedAddress';
 

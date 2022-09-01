@@ -1,7 +1,6 @@
 import React from 'react';
 import { getByText, render } from '@testing-library/react';
 import { Input } from './Input';
-import { isAddress } from 'ethers/lib/utils';
 
 describe('<Input />', () => {
   beforeEach(() => {

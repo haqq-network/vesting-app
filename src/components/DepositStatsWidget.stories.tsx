@@ -1,6 +1,9 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { DepositStatsWidget as DepositStatsWidgetComponent } from './DepositStatsWidget';
+import {
+  DepositStatsWidget as DepositStatsWidgetComponent,
+  DepositStatsWidgetArgs,
+} from './DepositStatsWidget';
 
 export default {
   title: 'ui-kit/Widgets',
@@ -11,7 +14,7 @@ export default {
 } as ComponentMeta<typeof DepositStatsWidgetComponent>;
 
 const Template: ComponentStory<typeof DepositStatsWidgetComponent> = (
-  args: any,
+  args: DepositStatsWidgetArgs,
 ) => {
   return <DepositStatsWidgetComponent {...args} />;
 };

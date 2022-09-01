@@ -1,16 +1,18 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { BurgerButton as BurgerButtonComponent } from './BurgerButton';
+import {
+  BurgerButton as BurgerButtonComponent,
+  BurgerButtonProps,
+} from './BurgerButton';
 
 export default {
   title: 'ui-kit/Button',
   component: BurgerButtonComponent,
-  // parameters: {
-  //   layout: 'centered',
-  // },
 } as ComponentMeta<typeof BurgerButtonComponent>;
 
-const Template: ComponentStory<typeof BurgerButtonComponent> = (args: any) => {
+const Template: ComponentStory<typeof BurgerButtonComponent> = (
+  args: BurgerButtonProps,
+) => {
   return <BurgerButtonComponent {...args} />;
 };
 

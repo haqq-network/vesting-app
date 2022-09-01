@@ -1,13 +1,18 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { AccountWidget as AccountWidgetComponent } from './AccountWidget';
+import {
+  AccountWidget as AccountWidgetComponent,
+  AccountWidgetProps,
+} from './AccountWidget';
 
 export default {
   title: 'ui-kit/AccountWidget',
   component: AccountWidgetComponent,
 } as ComponentMeta<typeof AccountWidgetComponent>;
 
-const Template: ComponentStory<typeof AccountWidgetComponent> = (args: any) => {
+const Template: ComponentStory<typeof AccountWidgetComponent> = (
+  args: AccountWidgetProps,
+) => {
   return <AccountWidgetComponent {...args} />;
 };
 

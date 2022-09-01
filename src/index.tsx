@@ -4,14 +4,14 @@ import { App } from './App';
 import { AppContainer } from './AppContainer';
 
 if (process.env.NODE_ENV === 'production') {
-  const { initSentry } = await import('./initSentry');
-
-  initSentry();
+  import('./initSentry').then(({ initSentry }) => {
+    initSentry();
+  });
 }
 
-export function startApp() {
-  const rootElement = document.getElementById('root') as HTMLElement;
-  const root = createRoot(rootElement);
+function startApp() {
+  const rootElement = document.getElementById('root');
+  const root = createRoot(rootElement as HTMLElement);
 
   root.render(
     <StrictMode>
@@ -22,4 +22,6 @@ export function startApp() {
   );
 }
 
-startApp();
+document.addEventListener('DOMContentLoaded', () => {
+  startApp();
+});

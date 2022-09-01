@@ -1,25 +1,29 @@
-import React, { useCallback, useMemo } from 'react';
-import { useAccount, useBalance, useConnect, useDisconnect } from 'wagmi';
+import React, { useMemo } from 'react';
+import { useAccount, useBalance, useDisconnect } from 'wagmi';
+import { getChain } from '../config';
+import { useOnboarding } from '../OnboardingContainer';
 import { AccountButton } from './AccountButton';
 
 export function ConnectButton() {
   const { isConnected, address } = useAccount();
-  const { connect, connectors } = useConnect();
   const { data: balance } = useBalance({
     addressOrName: address,
     watch: true,
   });
   const { disconnect } = useDisconnect();
+  const { connectWallet } = useOnboarding();
+  const chain = getChain();
 
-  const handleConnect = useCallback(() => {
-    // console.log('onConnectClick', { connector });
-    connect({ connector: connectors[0] });
-  }, [connect, connectors]);
+  const accBalance = useMemo(() => {
+    if (!balance) {
+      return undefined;
+    }
 
-  const handleDisconnect = useCallback(() => {
-    // console.log('handleDisconnect');
-    disconnect();
-  }, [disconnect]);
+    return {
+      value: Number.parseFloat(balance.formatted),
+      symbol: chain.nativeCurrency.symbol,
+    };
+  }, [balance, chain.nativeCurrency.symbol]);
 
   const account = useMemo(() => {
     if (!isConnected || !address) {
@@ -28,14 +32,14 @@ export function ConnectButton() {
 
     return {
       address,
-      balance,
+      balance: accBalance,
     };
-  }, [address, balance, isConnected]);
+  }, [address, accBalance, isConnected]);
 
   return (
     <AccountButton
-      onConnectClick={handleConnect}
-      onDisconnectClick={handleDisconnect}
+      onConnectClick={connectWallet}
+      onDisconnectClick={disconnect}
       account={account}
     />
   );

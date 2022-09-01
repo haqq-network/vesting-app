@@ -1,70 +1,82 @@
-import type { Chain } from 'wagmi';
+import { version } from '../package.json';
+
+const buildHash = process.env.BUILD_HASH ?? 'dev';
 
 export interface AppConfig {
   contractAddress: string | undefined;
   sentryDsn: string | undefined;
   network: string;
+  version: string;
+  publicUrl: string;
 }
 
 export const config: AppConfig = {
   contractAddress: process.env.CONTRACT_ADDRESS,
   sentryDsn: process.env.SENTRY_DSN,
   network: process.env.NETWORK ?? 'dev',
+  version: `${version}-${buildHash}`,
+  publicUrl: process.env.PUBLIC_URL ?? '/',
 };
 
-console.log({ config });
+interface Chain {
+  id: number;
+  name: string;
+  network: string;
+  rpcUrls: Record<string, string>;
+  nativeCurrency: {
+    name: string;
+    symbol: string;
+    decimals: number;
+  };
+  testnet: boolean;
+}
 
-const currency = {
+const currency: Chain['nativeCurrency'] = {
   name: 'Islamic Coin',
   symbol: 'ISLM',
   decimals: 18,
 };
 
-// Networks
 export const chains: Record<string, Chain> = {
-  dev: {
-    id: 1337,
-    name: 'Haqq devnet',
-    network: 'haqq-devnet',
+  local: {
+    id: 5777,
+    name: 'Haqq Localnet',
+    network: 'haqq-localnet',
     rpcUrls: {
       default: 'http://127.0.0.1:7545',
       ws: 'ws://127.0.0.1:7545',
+    },
+    nativeCurrency: currency,
+    testnet: true,
+  },
+  dev: {
+    id: 121799,
+    name: 'Haqq Devnet',
+    network: 'haqq-devnet',
+    rpcUrls: {
+      default: 'http://159.69.6.222:8545',
     },
     testnet: true,
     nativeCurrency: currency,
   },
   test: {
     id: 53211,
-    name: 'Haqq testnet',
-    network: 'haqq-testnet',
+    name: 'Haqq Testedge',
+    network: 'haqq-testedge',
     rpcUrls: {
       default: 'https://rpc.eth.testedge.haqq.network',
-      // ws: 'wss://rpc.eth.testedge.haqq.network',
     },
     testnet: true,
-    blockExplorers: {
-      default: {
-        name: 'Blockscout',
-        url: 'https://explorer.testedge.haqq.network',
-      },
-    },
     nativeCurrency: currency,
   },
   main: {
     id: 11235,
-    name: 'Haqq mainnet',
+    name: 'Haqq Mainnet',
     network: 'haqq-mainnet',
     rpcUrls: {
       default: 'https://rpc.eth.haqq.network',
-      // ws: 'wss://rpc.eth.haqq.network',
     },
     testnet: false,
-    blockExplorers: {
-      default: {
-        name: 'Blockscout',
-        url: 'https://explorer.haqq.network',
-      },
-    },
     nativeCurrency: currency,
   },
 };

@@ -48,7 +48,7 @@ export function DepositNavigation({
       </button>
       <div>
         <Text color="light" className="text-lg">
-          <b>{current}</b> of {total}
+          {current} of {total}
         </Text>
       </div>
       <button

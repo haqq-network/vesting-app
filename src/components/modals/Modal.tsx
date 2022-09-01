@@ -1,11 +1,18 @@
 import React, { Fragment, ReactNode, SyntheticEvent } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import styled from '@emotion/styled';
 
 export interface ModalProps {
   isOpen?: boolean;
   onClose: () => void;
   children: ReactNode;
 }
+
+const ModalOverlay = styled.div`
+  --modal-overlay-bg-color: rgba(12, 12, 12, 0.4);
+
+  background-color: var(--modal-overlay-bg-color);
+`;
 
 export function Modal({ children, onClose, isOpen = false }: ModalProps) {
   return (
@@ -20,9 +27,9 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div
+          <ModalOverlay
             role="none"
-            className="fixed inset-0 backdrop-filter backdrop-blur transform-gpu bg-[rgba(12, 12, 12, 0.4)]"
+            className="fixed inset-0 backdrop-filter backdrop-blur transform-gpu"
             onClick={onClose}
             onKeyDown={(
               event: SyntheticEvent<HTMLDivElement, KeyboardEvent>,
@@ -56,5 +63,31 @@ export function Modal({ children, onClose, isOpen = false }: ModalProps) {
         </div>
       </Dialog>
     </Transition>
+  );
+}
+
+export function ModalCloseButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      className="cursor-pointer w-[24px] h-[24px] text-dark-gray hover:text-primary"
+      onClick={onClick}
+    >
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6 6L18.7742 18.7742"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M6 18.7734L18.7742 5.99924"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
   );
 }

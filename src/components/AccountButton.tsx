@@ -4,6 +4,7 @@ import { Button } from './Button';
 import { IdentIcon } from './IdentIcon';
 import type { BigNumber } from 'ethers';
 import { Menu, Transition } from '@headlessui/react';
+import { getFormattedAddress } from '../utils/getFormattedAddress';
 
 function AddressButton({
   children,
@@ -41,10 +42,10 @@ function BalanceButton({
 }) {
   const classNames = clsx(
     'font-serif text-base leading-[24px]',
-    'px-[20px] py-[8px] rounded-none',
+    'px-[12px] py-[8px] rounded-none',
     'text-white bg-primary hover:bg-[#20d775]',
     'transition-colors duration-150 ease-linear',
-    'rounded-l-[8px]',
+    'rounded-[8px]',
     className,
   );
 
@@ -59,22 +60,14 @@ export interface AccountButtonProps {
   account?: {
     address: string;
     balance?: {
-      decimals: number;
-      formatted: string;
+      value: number;
       symbol: string;
-      value: BigNumber;
     };
   };
-  symbol?: string;
   onConnectClick?: () => void;
   onDisconnectClick?: () => void;
   onAddressClick?: () => void;
   onBalanceClick?: () => void;
-}
-
-function getFormattedAddress(address: string) {
-  const lower = address.toLocaleLowerCase();
-  return `${lower.slice(0, 6)}...${lower.slice(-4)}`;
 }
 
 export function AccountButton({
@@ -89,22 +82,21 @@ export function AccountButton({
   }
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row bg-primary rounded-[8px]">
       {account.balance && (
-        <BalanceButton onClick={onBalanceClick}>
+        <BalanceButton onClick={onBalanceClick} className="hidden sm:block">
           <div className="mb-[-4px] font-bold">
-            {Number.parseFloat(account.balance.formatted).toLocaleString()}{' '}
+            {account.balance.value.toLocaleString()}{' '}
             {account.balance.symbol.toLocaleUpperCase()}
           </div>
         </BalanceButton>
       )}
 
       <Menu as="div" className="relative inline-block text-left">
-        <Menu.Button as="div" className="rounded-r-[8px] bg-primary p-[2px]">
+        <Menu.Button as="div" className="rounded-[8px] bg-primary p-[2px]">
           <AddressButton>
             <div className="text-[14px] font-medium flex-1">
-              {/* {`0x...${account.address.toLocaleLowerCase().slice(-4)}`} */}
-              {getFormattedAddress(account.address)}
+              {getFormattedAddress(account.address, 3, 2)}
             </div>
             <IdentIcon
               address={account.address}
@@ -123,14 +115,16 @@ export function AccountButton({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white focus:outline-none shadow p-1">
-            <Menu.Item
-              as="button"
-              className="py-[6px] px-[12px] leading-[24px] hover:bg-light-green transition-colors duration-150 ease-in-out block w-full rounded-sm text-left"
-              onClick={onDisconnectClick}
-            >
-              Disconnect
-            </Menu.Item>
+          <Menu.Items className="absolute right-0 mt-2 w-40 origin-top-right rounded-md bg-white focus:outline-none shadow-lg py-1">
+            {onDisconnectClick && (
+              <Menu.Item
+                as="button"
+                className="py-[6px] px-[16px] leading-[24px] hover:bg-light-green hover:text-primary transition-colors duration-150 ease-out block w-full text-left"
+                onClick={onDisconnectClick}
+              >
+                Disconnect
+              </Menu.Item>
+            )}
           </Menu.Items>
         </Transition>
       </Menu>

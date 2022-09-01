@@ -33,12 +33,12 @@ export function Confirm({
 
           <div className="flex flex-row justify-between">
             <div>
-              <Button onClick={onClose} fill className="px-10">
+              <Button onClick={onClose} fill className="px-4 sm:px-10">
                 Abort
               </Button>
             </div>
             <div>
-              <DangerButton onClick={onConfirm} fill className="px-10">
+              <DangerButton onClick={onConfirm} fill className="px-4 sm:px-10">
                 {buttonTitle}
               </DangerButton>
             </div>

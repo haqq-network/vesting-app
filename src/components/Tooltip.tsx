@@ -8,7 +8,7 @@ export interface TooltipProps {
 
 export function Tooltip({ text, children }: TooltipProps): ReactElement {
   return (
-    <span className="relative leading-none group">
+    <span className="relative leading-none group inline-block">
       {children}
       <div
         className={clsx(
@@ -16,7 +16,8 @@ export function Tooltip({ text, children }: TooltipProps): ReactElement {
           'left-1/2 -translate-x-1/2 -translate-y-2 bottom-full',
           'transition ease-out duration-100',
           'group-hover:visible group-hover:z-50 group-hover:opacity-100 group-hover:translate-y-0',
-          'py-[6px] px-[12px] rounded-md bg-primary shadow-xl leading-snug text-xs font-medium text-white',
+          'py-[6px] px-[12px] rounded-md shadow-lg leading-snug text-xs font-medium',
+          'text-white bg-primary',
         )}
       >
         {text}

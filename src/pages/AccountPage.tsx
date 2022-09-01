@@ -1,20 +1,41 @@
-import React from 'react';
-import AccountWidget from '../components/AccountWidget';
-import Deposit from '../components/DepositStatsWidget';
+import React, { useMemo } from 'react';
+import { useAccount, useBalance } from 'wagmi';
+import { AccountWidget } from '../components/AccountWidget';
+import { DepositStatsWidget } from '../components/DepositStatsWidget';
 import { Container } from '../components/Layout';
-import { config } from '../config';
+import { config, getChain } from '../config';
 
 export function AccountPage() {
-  return (
-    <section className="py-20">
-      <Container className="flex flex-col space-y-12">
-        <AccountWidget />
+  const { address, isConnected } = useAccount();
+  const {
+    data: balance,
+    isError,
+    isLoading,
+    status,
+    error,
+  } = useBalance({
+    addressOrName: address,
+    watch: true,
+  });
+  const chain = getChain();
 
-        {config.contractAddress && (
-          <Deposit contractAddress={config.contractAddress} />
-        )}
-      </Container>
-    </section>
+  const accountWidgetProps = useMemo(() => {
+    return {
+      isConnected,
+      address: address ?? '',
+      balance: balance ? Number.parseFloat(balance.formatted) : 0,
+      symbol: chain.nativeCurrency.symbol,
+    };
+  }, [address, balance, chain.nativeCurrency.symbol, isConnected]);
+
+  return (
+    <Container className="flex flex-col space-y-12 py-8 sm:py-20">
+      <AccountWidget {...accountWidgetProps} />
+
+      {config.contractAddress && (
+        <DepositStatsWidget contractAddress={config.contractAddress} />
+      )}
+    </Container>
   );
 }
 

@@ -8,7 +8,7 @@ export interface AlertProps {
   title: string;
   children: ReactNode;
   onClose: () => void;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export function Alert({
@@ -29,11 +29,13 @@ export function Alert({
 
           <div>{children}</div>
 
-          <div className="text-right">
-            <Button onClick={onClick} className="min-w-[120px]">
-              Continue
-            </Button>
-          </div>
+          {onClick && (
+            <div className="text-right">
+              <Button onClick={onClick} className="min-w-[120px]">
+                Continue
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </Modal>

@@ -8,9 +8,9 @@ export function Footer(): ReactElement {
   return (
     <footer className="bg-light-green">
       <Container className="border-t border-light-gray py-4">
-        <nav className="flex flex-col justify-between items-center sm:flex-row">
-          <div className="flex flex-col sm:flex-row sm:justify-center">
-            <Text color="light" className="text-sm mb-[2px] sm:mb-0">
+        <nav className="flex flex-col justify-between items-center sm:flex-row space-y-2 sm:space-y-0">
+          <div className="flex flex-col sm:flex-row sm:justify-center space-y-2 sm:space-y-0">
+            <Text color="light" className="text-sm sm:mb-0">
               ©️ {new Date().getFullYear()}{' '}
               <a
                 href="https://haqq.network/"
@@ -22,19 +22,16 @@ export function Footer(): ReactElement {
               </a>
               &nbsp;
             </Text>
-            <Text
-              color="light"
-              className="text-sm self-center mb-[2px] sm:mb-0"
-            >
+            <Text color="light" className="text-sm self-center sm:mb-0">
               All rights reserved
             </Text>
           </div>
-          <div className="flex flex-row space-x-4 items-center">
+          <div className="flex flex-row sm:space-x-4 items-center">
             <a
               href={repository.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="cursor-pointer transition-colors duration-200 hover:text-primary text-dark-gray ease-out"
+              className="cursor-pointer transition-colors duration-200 hover:text-primary text-dark-gray ease-out hidden sm:block"
             >
               <svg
                 aria-hidden="true"

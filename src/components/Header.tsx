@@ -1,7 +1,5 @@
-import React, { lazy, ReactElement, useMemo, useState } from 'react';
+import React, { lazy, ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
-import { BurgerButton } from './BurgerButton';
-import { HeaderLink } from './HeaderLink';
 import { Container } from './Layout';
 import { Logo, LogoSmall } from './Logo';
 
@@ -10,7 +8,7 @@ const NetworkStatus = lazy(() => import('./NetworkStatus'));
 
 export function Header(): ReactElement {
   return (
-    <header className="hidden lg:inline backdrop-filter backdrop-blur transform-gpu bg-white/70 border-light-gray border-b">
+    <header className="backdrop-filter backdrop-blur transform-gpu bg-white/70 border-light-gray border-b">
       <Container>
         <div className="relative flex items-center justify-between h-[64px]">
           <div className="flex-1 flex items-center justify-start">

@@ -1,7 +1,5 @@
-import React, { lazy, ReactElement, useMemo, useState } from 'react';
+import React, { lazy, ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
-import { BurgerButton } from './BurgerButton';
-import { HeaderLink } from './HeaderLink';
 import { Container } from './Layout';
 import { Logo, LogoSmall } from './Logo';
 

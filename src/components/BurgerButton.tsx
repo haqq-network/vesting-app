@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import styles from './BurgerButton.module.css';
 
-type BurgerButtonProps = {
+export type BurgerButtonProps = {
   isOpen: boolean;
   onClick: () => void;
 };

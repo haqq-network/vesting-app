@@ -49,6 +49,10 @@ interface Deposit {
   unlockPeriod: number;
 }
 
+export interface DepositStatsWidgetArgs {
+  contractAddress: string;
+}
+
 function mapSCResponseToJson(
   contract: Contract,
   available: BigNumber,
@@ -102,9 +106,7 @@ function StatsRow({ label, value }: { label: string; value: string }) {
 
 export function DepositStatsWidget({
   contractAddress,
-}: {
-  contractAddress: string;
-}) {
+}: DepositStatsWidgetArgs) {
   const chain = getChain();
   const { address, isConnected } = useAccount();
   const provider = useProvider();
@@ -116,7 +118,6 @@ export function DepositStatsWidget({
   const [deposit, setDeposit] = useState<Deposit | null>(null);
   const [depositsCount, setDepositsCount] = useState<number>(0);
   const [currentDeposit, setCurrentDeposit] = useState<number>(0);
-  // const [isWithdrawRequested, setWithdrawRequested] = useState<boolean>(false);
 
   const requestDepositCount = useCallback(async () => {
     try {
@@ -215,14 +216,6 @@ export function DepositStatsWidget({
                   symbol={chain.nativeCurrency?.symbol ?? ''}
                   contractAddress={contractAddress}
                 />
-
-                {/* <Button
-                  fill
-                  disabled={!isWithdrawAvailable}
-                  onClick={handleWithdrawRequest}
-                >
-                  Withdraw
-                </Button> */}
               </div>
             </Fragment>
           )}
@@ -381,8 +374,6 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
       const transfer = await contract.transferDepositRights(
         newBeneficiaryAddress,
       );
-
-      // console.log({ transfer });
       setTransferTx(transfer.hash);
       setComplete(true);
     } catch (error: any) {
@@ -486,7 +477,7 @@ function Transfer({ contractAddress, symbol }: TransferAndWithdrawArgs) {
                 }}
                 className="px-10"
               >
-                Yes, I'm sure
+                Yes, I&apos;m sure
               </DangerButton>
             </div>
           </div>

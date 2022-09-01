@@ -7,13 +7,7 @@ import { config, getChain } from '../config';
 
 export function AccountPage() {
   const { address, isConnected } = useAccount();
-  const {
-    data: balance,
-    isError,
-    isLoading,
-    status,
-    error,
-  } = useBalance({
+  const { data: balance } = useBalance({
     addressOrName: address,
     watch: true,
   });

@@ -2654,7 +2654,7 @@ __metadata:
     "@types/eslint": 8.4.6
     "@types/events": 3.0.0
     "@types/jest": 28.1.8
-    "@types/node": 18.7.13
+    "@types/node": 18.11.8
     "@types/postcss-import": 14.0.0
     "@types/prettier": 2.7.0
     "@types/react": 18.0.17
@@ -6081,10 +6081,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.7.13":
-  version: 18.7.13
-  resolution: "@types/node@npm:18.7.13"
-  checksum: 45431e7e89ecaf85c7d2c180d801c132a7c59e2f8ad578726b6d71cc74e3267c18f9ccdcad738bc0479790c078f0c79efb0e58da2c6be535c15995dbb19050c9
+"@types/node@npm:18.11.8":
+  version: 18.11.8
+  resolution: "@types/node@npm:18.11.8"
+  checksum: 60b358f97c1a029722dc785811b217615ef20249c3fbde60a65869cfd7a5cd5b1872ee95c79c187ef70e5a078f4ac7670d2129803985268b1f021ad6e8040af8
   languageName: node
   linkType: hard
 
